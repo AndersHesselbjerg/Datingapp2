@@ -11,6 +11,15 @@ public class User {
        private String firstName;
        private String lastName;
 
+       public User(String description, String tags, int userid, String userName, String password, String firstName, String lastName) {
+              this.description = description;
+              this.tags = tags;
+              this.userid = userid;
+              this.userName = userName;
+              this.password = password;
+              this.firstName = firstName;
+              this.lastName = lastName;
+       }
 
        public String getDescription() {
               return description;
