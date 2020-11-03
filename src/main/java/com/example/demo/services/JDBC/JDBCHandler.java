@@ -1,5 +1,6 @@
 package com.example.demo.services.JDBC;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -10,23 +11,36 @@ import java.sql.SQLException;
 @Component
 @Scope("Singleton")
 public class JDBCHandler {
-
-    private final JDBCReader jdbcReader;
-    private final JDBCWriter jdbcWriter;
+    private JDBCReader jdbcReader;
+    private JDBCWriter jdbcWriter;
     private Connection connection;
+    private String url = "jdbc:mysql://localhost:3306/urlread?serverTimezone=UTC";
+    private String user = "DB";
+    private String pass = "333";
 
-    JDBCHandler(JDBCReader jdbcReader, JDBCWriter jdbcWriter) {
+    @Autowired
+    public void setJdbcReader(JDBCReader jdbcReader) {
         this.jdbcReader = jdbcReader;
-        this.jdbcWriter = jdbcWriter;
+        jdbcReader.setConnection(connection);
     }
 
-    public boolean setConnection(String url) {
+    @Autowired
+    public void setJdbcWriter(JDBCWriter jdbcWriter) {
+        this.jdbcWriter = jdbcWriter;
+        jdbcWriter.setConnection(connection);
+    }
+
+    public boolean setConnection() {
         try {
-            connection = DriverManager.getConnection(url);
+            connection = DriverManager.getConnection(url, user, pass);
             return true;
         } catch (SQLException sqlException) {
             System.out.println(sqlException.getMessage());
             return false;
         }
     }
+
+    public void getUsers(int[] ids) {/* return ResultSet */}
+
+    public void getChat(int id) {/* return ResultSet */}
 }
