@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="jdbcReader" class="com.example.demo.services.JDBC.JDBCReader" />
+    <bean id="jdbcWriter" class="com.example.demo.services.JDBC.JDBCWriter" />
+    <bean id="jdbcHandler" class="com.example.demo.services.JDBC.JDBCHandler" >
+        <constructor-arg index="0" ref="jdbcReader"/>
+        <constructor-arg index="1" ref="jdbcWriter"/>
+    </bean>
+</beans>
