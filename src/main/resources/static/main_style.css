@@ -9,6 +9,10 @@ html {
     box-sizing: border-box;
 }
 
+.a {
+    text-decoration: none;
+}
+
 body {
     font-family: Helvetica, Verdana;
     margin: 0px;
@@ -30,19 +34,26 @@ body {
 }
 
 #banner {
+    height: 100px;
 }
 
-
-#login {
-    background-color: white;
-    border-radius: 15px 15px 15px 15px;
-    border: 3px solid #9ED36A;
-    width: 7%;
+#content {
     text-align: center;
-    font-size: 1.5vw;
-    margin: 20px;
+    width: 750px;
+    margin: auto;
 }
 
-.article {
+#loginfields {
+
+    float: left;
 }
 
+#signupfields {
+
+    float: right;
+}
+
+.footer {
+    text-align: center;
+    clear: both;
+}

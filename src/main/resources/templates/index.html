@@ -7,25 +7,46 @@
 </head>
 <body>
 <header id="above">
-
 </header>
-<header id = "header">
+<header id="header">
     DATING
 </header>
-<article>
-    article
-    <div id="banner">
-        <button id="login">
-            <a href="/logIn"> LOG IN </a>
-        </button>
+<div id="banner">
+</div>
+<div id="content">
+    <div id="loginfields">
+        <form action="/loggedIn" method=post>
+            Bruger navn
+            <br> <input type="text" name="userName">
+            <p></p> Password
+            <br> <input type="text" name="password">
+            <p></p>
+            <div class="button">
+                <input type="Submit" value="  Log in!  ">
+            </div>
+        </form>
     </div>
-    <div id="intro">
+    <div id="signupfields">
+        <form action="/createUser" method=post>
+            Bruger navn
+            <br> <input type="text" name="userName">
+            <p></p>Password
+            <br> <input type="text" name="password">
+            <p></p>Fornavn
+            <br> <input type="text" name="firstName">
+            <p></p>Efternavn
+            <br> <input type="text" name="lastName">
+            <p></p>
+            <div id="button">
+                <p></p><input type="Submit" value="  Log in!  ">
+            </div>
+        </form>
     </div>
-    <div id="stats">
+            <div id="stats">
+            </div>
     </div>
-</article>
-<footer>
-    Footer
-</footer>
+</div>
+    <footer>
+    </footer>
 </body>
 </html>
