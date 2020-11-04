@@ -28,6 +28,11 @@ public class AppController {
         return "error";
     }
 
+    @GetMapping("/userpage")
+    public String userpage (){
+        return "userpage";
+    }
+
     @GetMapping("/userlist")
     public String userlist (){
         return "userlist";
