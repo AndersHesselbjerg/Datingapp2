@@ -28,4 +28,9 @@ public class AppController {
         return "error";
     }
 
+    @GetMapping("/userlist")
+    public String userlist (){
+        return "userlist";
+    }
+
 }
