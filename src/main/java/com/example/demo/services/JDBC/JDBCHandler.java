@@ -14,9 +14,9 @@ public class JDBCHandler {
     private JDBCReader jdbcReader;
     private JDBCWriter jdbcWriter;
     private Connection connection;
-    private String url = "jdbc:mysql://localhost:3306/urlread?serverTimezone=UTC";
-    private String user = "DB";
-    private String pass = "333";
+    private String url = "jdbc:mysql://localhost:3306/mydb?serverTimezone=UTC";
+    private String user = "root";
+    private String pass = "bds67gfg";
 
     @Autowired
     public void setJdbcReader(JDBCReader jdbcReader) {
