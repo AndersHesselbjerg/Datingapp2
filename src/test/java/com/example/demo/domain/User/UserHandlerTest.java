@@ -53,10 +53,11 @@ class UserHandlerTest {
             jdbcReader.setConnection(connection);
             ResultSet resultSet = jdbcReader.getUsers(ids);
 
-            // TEST
+            // TEST STARTS HERE -------------------------------------------------------------------------
             userHandler.buildUsers(resultSet);
             UserList new_users = userHandler.fetchUsers();
 
+            // TESTING IF USER INFORMATION FITS THE DATABASE INFORMATION
             User rasmus = new_users.get(0);
             assertEquals("1", rasmus.getUserid());
             assertEquals("Akila", rasmus.getUserName());
@@ -66,14 +67,12 @@ class UserHandlerTest {
             assertNull(rasmus.getDescription());
             assertNull(rasmus.getTags());
 
+            // TESTING IF THE USERLIST IS ERASED AFTER BEING FETCHED FOR THE FIRST TIME
+            UserList even_newer_users = userHandler.fetchUsers();
+            assertEquals(0, even_newer_users.size());
+
         } catch (SQLException sqlException) {
             throw new NullPointerException();
         }
-    }
-
-    @Test
-    UserList fetchUsers() {
-
-        return null;
     }
 }
