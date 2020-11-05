@@ -27,9 +27,9 @@ public class AppController {
         return "error";
     }
 
-    @GetMapping("/userpage")
-    public String userpage (){
-        return "userpage";
+    @GetMapping("/user")
+    public String user (){
+        return "user";
     }
 
     @GetMapping("/userlist")
