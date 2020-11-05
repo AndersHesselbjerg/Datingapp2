@@ -9,27 +9,39 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class JDBCHandlerTest {
-    @MockBean
-    JDBCWriter jdbcWriter;
-    @MockBean
-    JDBCReader jdbcReader;
-    @MockBean
-    JDBCHandler jdbcHandler;
-    private String url = "jdbc:mysql://localhost:3306/mydb?serverTimezone=UTC";
-    private String user = "DB";
-    private String pass = "333";
+
+    private String url;
+    private String user;
+    private String pass;
+
+    JDBCHandlerTest() {
+        try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
+            Properties properties = new Properties();
+            properties.load(input);
+            this.url = properties.getProperty("url");
+            this.user = properties.getProperty("user");
+            this.pass = properties.getProperty("pass");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     void setConnection() {
+        JDBCHandler jdbcHandler = new JDBCHandler();
         boolean test = jdbcHandler.setConnection();
         assertEquals(true, test);
     }

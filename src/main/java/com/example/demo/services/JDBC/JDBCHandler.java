@@ -7,10 +7,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.print.AttributeException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 @Component
 @Scope("Singleton")
@@ -18,9 +23,21 @@ public class JDBCHandler {
     private JDBCReader jdbcReader;
     private JDBCWriter jdbcWriter;
     private Connection connection;
-    private String url = "jdbc:mysql://localhost:3306/mydb?serverTimezone=UTC";
-    private String user = "DB";
-    private String pass = "333";
+    private String url;
+    private String user;
+    private String pass;
+
+    JDBCHandler() {
+        try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
+            Properties properties = new Properties();
+            properties.load(input);
+            url = properties.getProperty("url");
+            user = properties.getProperty("user");
+            pass = properties.getProperty("pass");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Autowired
     public void setJdbcReader(JDBCReader jdbcReader) {
@@ -38,8 +55,8 @@ public class JDBCHandler {
         try {
             connection = DriverManager.getConnection(url, user, pass);
             return true;
-        } catch (SQLException sqlException) {
-            System.out.println(sqlException.getMessage());
+        } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
     }
