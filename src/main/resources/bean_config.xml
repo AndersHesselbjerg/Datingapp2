@@ -5,5 +5,7 @@
     <bean id="jdbcReader" class="com.example.demo.domain.JDBC.JDBCReader" />
     <bean id="jdbcWriter" class="com.example.demo.domain.JDBC.JDBCWriter" />
     <bean id="jdbcHandler" class="com.example.demo.domain.JDBC.JDBCHandler"/>
+    <bean id="userList" class="com.example.demo.domain.User.UserList"/>
+    <bean id="userFactory" class="com.example.demo.domain.User.UserFactory"/>
     <bean id="userHandler" class="com.example.demo.domain.User.UserHandler"/>
 </beans>

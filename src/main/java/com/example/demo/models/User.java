@@ -1,24 +1,25 @@
 package com.example.demo.models;
 
+import org.springframework.context.annotation.Bean;
+
 
 public class User {
-
-       private String description;
-       private String tags;
-       private int userid;
+       private String userid;
        private String userName;
        private String password;
        private String firstName;
        private String lastName;
+       private String description;
+       private String tags;
 
-       public User(String description, String tags, int userid, String userName, String password, String firstName, String lastName) {
-              this.description = description;
-              this.tags = tags;
+       public User(String userid, String userName, String password, String firstName, String lastName, String description, String tags) {
               this.userid = userid;
               this.userName = userName;
               this.password = password;
               this.firstName = firstName;
               this.lastName = lastName;
+              this.description = description;
+              this.tags = tags;
        }
 
        public String getDescription() {
@@ -37,11 +38,11 @@ public class User {
               this.tags = tags;
        }
 
-       public int getUserid() {
+       public String getUserid() {
               return userid;
        }
 
-       public void setUserid(int userid) {
+       public void setUserid(String userid) {
               this.userid = userid;
        }
 
