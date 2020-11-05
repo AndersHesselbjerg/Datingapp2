@@ -1,13 +1,8 @@
-package com.example.demo.services.JDBC;
+package com.example.demo.domain.JDBC;
 
 import com.mysql.cj.jdbc.result.ResultSetImpl;
-import com.mysql.cj.protocol.Resultset;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -65,6 +60,9 @@ class JDBCHandlerTest {
                 assertEquals("Rasmus", result);
                 result = resultSet.getString("last_name");
                 assertEquals("Bilgård", result);
+            } else {
+                // Call an assertion that will fail
+                assertEquals(1,0);
             }
             // assertEquals(0,resultSet.getObject("id"));
         } catch (SQLException e) {

@@ -1,11 +1,10 @@
 package com.example.demo.controllers;
 
-import com.example.demo.services.JDBC.JDBCHandler;
+import com.example.demo.domain.JDBC.JDBCHandler;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
 
 @Controller
 public class AppController {

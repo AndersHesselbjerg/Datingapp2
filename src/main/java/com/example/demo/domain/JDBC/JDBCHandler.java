@@ -1,14 +1,10 @@
-package com.example.demo.services.JDBC;
+package com.example.demo.domain.JDBC;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import javax.print.AttributeException;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -65,5 +61,7 @@ public class JDBCHandler {
         return jdbcReader.getUsers(ids);
     }
 
-    public void getChat(int id) {/* return ResultSet */}
+    public void getChat(int id) {
+        // return jdbcReader.getChat(id);
+    }
 }

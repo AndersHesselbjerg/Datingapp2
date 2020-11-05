@@ -1,4 +1,4 @@
-package com.example.demo.services.JDBC;
+package com.example.demo.domain.JDBC;
 
 import com.example.demo.models.User;
 import org.springframework.context.annotation.Scope;
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Vector;
 
 @Component
 @Scope("Singleton")

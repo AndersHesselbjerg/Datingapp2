@@ -1,4 +1,4 @@
-package com.example.demo.services.User;
+package com.example.demo.domain.User;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

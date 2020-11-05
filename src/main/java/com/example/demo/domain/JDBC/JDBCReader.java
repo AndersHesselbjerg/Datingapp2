@@ -1,4 +1,4 @@
-package com.example.demo.services.JDBC;
+package com.example.demo.domain.JDBC;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
