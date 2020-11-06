@@ -36,7 +36,8 @@ class JDBCHandlerTest {
 
     @Test
     void setConnection() {
-        JDBCHandler jdbcHandler = new JDBCHandler();
+        JDBCEntity jdbcEntity = new JDBCEntity();
+        JDBCHandler jdbcHandler = new JDBCHandler(jdbcEntity);
         boolean test = jdbcHandler.setConnection();
         assertEquals(true, test);
     }

@@ -2,10 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="jdbcReader" class="com.example.demo.domain.JDBC.JDBCEntity" />
+    <bean id="jdbcEntity" class="com.example.demo.domain.JDBC.JDBCEntity" />
     <bean id="jdbcWriter" class="com.example.demo.domain.JDBC.JDBCWriter" />
-    <bean id="jdbcHandler" class="com.example.demo.domain.JDBC.JDBCHandler"/>
+    <bean id="jdbcHandler" class="com.example.demo.domain.JDBC.JDBCHandler">
+        <constructor-arg index="0" ref="jdbcEntity"/>
+    </bean>
     <bean id="userList" class="com.example.demo.domain.User.UserList"/>
     <bean id="userFactory" class="com.example.demo.domain.User.UserFactory"/>
-    <bean id="userHandler" class="com.example.demo.domain.User.UserHandler"/>
+    <bean id="userHandler" class="com.example.demo.domain.User.UserHandler">
+        <constructor-arg index="0" ref="userList"/>
+        <constructor-arg index="1" ref="userFactory"/>
+    </bean>
 </beans>

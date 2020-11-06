@@ -20,7 +20,9 @@ public class JDBCHandler {
     private String user;
     private String pass;
 
-    JDBCHandler() {
+    JDBCHandler(JDBCEntity jdbcEntity) {
+        this.jdbcEntity = jdbcEntity;
+        jdbcEntity.setConnection();
         try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
             Properties properties = new Properties();
             properties.load(input);
@@ -33,7 +35,7 @@ public class JDBCHandler {
     }
 
     @Autowired
-    public void setJdbcReader(JDBCEntity jdbcEntity) {
+    public void setJdbcEntity(JDBCEntity jdbcEntity) {
         this.jdbcEntity = jdbcEntity;
         jdbcEntity.setConnection(connection);
     }

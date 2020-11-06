@@ -43,9 +43,9 @@ class UserHandlerTest {
         try {
             // SETUP
             JDBCEntity jdbcEntity = new JDBCEntity();
-            userHandler = new UserHandler();
             userFactory = new UserFactory();
             users = new UserList();
+            userHandler = new UserHandler(users, userFactory);
             userHandler.setUserFactory(userFactory);
             userHandler.setUserList(users);
             String statement = "SELECT * FROM mydb.users;";

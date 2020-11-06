@@ -15,6 +15,11 @@ public class UserHandler {
     private UserList userList;
     private UserFactory userFactory;
 
+    UserHandler(UserList userList, UserFactory userFactory) {
+        this.userList = userList;
+        this.userFactory = userFactory;
+    }
+
     @Autowired
     public void setUserList(UserList userList) {
         this.userList = userList;
