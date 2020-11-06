@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class UserFactory {
     public User create(ResultSet resultSet) {
         try {
-            String id = resultSet.getString("id");
+            String id = resultSet.getString("ID");
             String username = resultSet.getString("username");
             String password = resultSet.getString("password");
             String firstname = resultSet.getString("first_name");

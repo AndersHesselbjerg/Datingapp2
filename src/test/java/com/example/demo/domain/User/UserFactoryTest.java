@@ -45,16 +45,17 @@ class UserFactoryTest {
 
             // TEST
             UserFactory userFactory = new UserFactory();
-            User rasmus = userFactory.create(resultSet);
+            if (resultSet.next()) {
+                User rasmus = userFactory.create(resultSet);
 
-            assertEquals("1", rasmus.getUserid());
-            assertEquals("Akila", rasmus.getUserName());
-            assertEquals("Hello World", rasmus.getPassword());
-            assertEquals("Rasmus", rasmus.getFirstName());
-            assertEquals("Bilgård", rasmus.getLastName());
-            assertNull(rasmus.getDescription());
-            assertNull(rasmus.getTags());
-
+                assertEquals("1", rasmus.getUserid());
+                assertEquals("Akila", rasmus.getUserName());
+                assertEquals("Hello World", rasmus.getPassword());
+                assertEquals("Rasmus", rasmus.getFirstName());
+                assertEquals("Bilgård", rasmus.getLastName());
+                assertNull(rasmus.getDescription());
+                assertNull(rasmus.getTags());
+            }
         } catch (SQLException e) {
             throw new NullPointerException("Something went wrong, check your connection to dbms");
         }
