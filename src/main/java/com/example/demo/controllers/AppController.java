@@ -4,6 +4,7 @@ import com.example.demo.data.jdbc.JDBCHandler;
 import com.example.demo.domain.controller.BackController;
 import com.example.demo.domain.user.UserHandler;
 import com.example.demo.domain.user.UserList;
+import com.example.demo.models.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -44,8 +45,8 @@ public class AppController {
     @RequestMapping(value="/profile")
     public String profile(Model model, Principal principal) {
         String userName = principal.getName();
-        Resultset resultset = (Resultset) jdbcHandler.getUser(userName);
-        model.addAttribute("user", resultset);
+        User user = backController.getUser(userName);
+        model.addAttribute("user", user);
         return "profile";
     }
 
