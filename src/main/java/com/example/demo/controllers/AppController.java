@@ -2,10 +2,17 @@ package com.example.demo.controllers;
 
 import com.example.demo.domain.JDBC.JDBCHandler;
 import com.example.demo.domain.User.UserHandler;
+import com.example.demo.domain.User.UserList;
+import com.example.demo.models.User;
+import com.mysql.cj.protocol.Resultset;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 @Controller
 public class AppController {
@@ -35,9 +42,13 @@ public class AppController {
         return "user";
     }
 
-    @GetMapping("/userlist")
-    public String userlist (){
-        return "userlist";
+    @GetMapping("/users")
+    public String users (Model model){
+        ResultSet resultset = jdbcHandler.getAllUsers();
+        userHandler.buildUsers(resultset);
+        UserList users = userHandler.fetchUsers();
+        model.addAttribute("users", users );
+        return "users";
     }
 
 }
