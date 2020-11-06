@@ -45,5 +45,6 @@ public class UserHandler {
         UserList users = (UserList) userList.clone();
         userList = new UserList();
         return users;
+
     }
 }

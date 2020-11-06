@@ -10,7 +10,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -46,9 +48,16 @@ public class AppController {
     public String users (Model model){
         ResultSet resultset = jdbcHandler.getAllUsers();
         userHandler.buildUsers(resultset);
-        UserList users = userHandler.fetchUsers();
-        model.addAttribute("users", users );
+        model.addAttribute("users", userHandler.fetchUsers());
         return "users";
+    }
+
+    @RequestMapping(value="/profile")
+    public String profile(Model model, Principal principal) {
+        String userName = principal.getName();
+        Resultset resultset = (Resultset) jdbcHandler.getUser(userName);
+        model.addAttribute("user", resultset);
+        return "profile";
     }
 
 }
