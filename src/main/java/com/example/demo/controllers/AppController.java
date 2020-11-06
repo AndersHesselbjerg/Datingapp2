@@ -9,7 +9,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.sql.ResultSet;
 
 @Controller
@@ -32,15 +34,19 @@ public class AppController {
         return "error";
     }
 
-    @GetMapping("/user")
-    public String user (){
-        return "user";
-    }
-
     @GetMapping("/users")
     public String users (Model model){
         UserList users = backController.getAllUsers();
         model.addAttribute("users", users );
         return "users";
     }
+
+    @RequestMapping(value="/profile")
+    public String profile(Model model, Principal principal) {
+        String userName = principal.getName();
+        Resultset resultset = (Resultset) jdbcHandler.getUser(userName);
+        model.addAttribute("user", resultset);
+        return "profile";
+    }
+
 }
