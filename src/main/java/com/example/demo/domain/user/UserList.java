@@ -1,4 +1,4 @@
-package com.example.demo.domain.User;
+package com.example.demo.domain.user;
 
 import com.example.demo.models.User;
 import org.springframework.context.annotation.Scope;

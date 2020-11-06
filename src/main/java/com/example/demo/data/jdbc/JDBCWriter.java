@@ -1,4 +1,4 @@
-package com.example.demo.domain.JDBC;
+package com.example.demo.data.jdbc;
 
 import com.example.demo.models.User;
 import org.springframework.context.annotation.Scope;

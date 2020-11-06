@@ -1,55 +1,31 @@
-package com.example.demo.domain.JDBC;
+package com.example.demo.data.jdbc;
 
 import com.mysql.cj.jdbc.result.ResultSetImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class JDBCHandlerTest {
 
-    private String url;
-    private String user;
-    private String pass;
-
-    JDBCHandlerTest() {
-        try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
-            Properties properties = new Properties();
-            properties.load(input);
-            this.url = properties.getProperty("url");
-            this.user = properties.getProperty("user");
-            this.pass = properties.getProperty("pass");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Test
     void setConnection() {
-        JDBCEntity jdbcEntity = new JDBCEntity();
-        JDBCHandler jdbcHandler = new JDBCHandler(jdbcEntity);
-        boolean test = jdbcHandler.setConnection();
+        JDBCConnector jdbcConnector = new JDBCConnector();
+        boolean test = jdbcConnector.setConnection();
         assertEquals(true, test);
     }
 
     @Test
     void getUsers() {
-        JDBCEntity jdbcEntity = new JDBCEntity();
+        JDBCConnector jdbcConnector = new JDBCConnector();
         try {
-            Connection connection = DriverManager.getConnection(url, user, pass);
-            jdbcEntity.setConnection(connection);
+            jdbcConnector.setConnection();
             String statement = "SELECT * FROM mydb.users;";
-            ResultSet resultSet = jdbcEntity.query(statement);
+            ResultSet resultSet = jdbcConnector.query(statement);
             assertEquals(ResultSetImpl.class, resultSet.getClass());
             // Important detail when querying from dbms. Always get next item!
             if (resultSet.next()) {

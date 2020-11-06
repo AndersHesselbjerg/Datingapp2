@@ -1,10 +1,9 @@
 package com.example.demo.controllers;
 
-import com.example.demo.domain.JDBC.JDBCHandler;
-import com.example.demo.domain.User.UserHandler;
-import com.example.demo.domain.User.UserList;
-import com.example.demo.models.User;
-import com.mysql.cj.protocol.Resultset;
+import com.example.demo.data.jdbc.JDBCHandler;
+import com.example.demo.domain.controller.BackController;
+import com.example.demo.domain.user.UserHandler;
+import com.example.demo.domain.user.UserList;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -12,19 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 @Controller
 public class AppController {
     private static String path = "bean_config.xml";
     private static final ApplicationContext ctx = new ClassPathXmlApplicationContext(path);
-    private final JDBCHandler jdbcHandler;
-    private final UserHandler userHandler;
+    private final BackController backController;
 
     AppController() {
-        jdbcHandler = (JDBCHandler) ctx.getBean("jdbcHandler");
-        jdbcHandler.setConnection();
-        userHandler = (UserHandler) ctx.getBean("userHandler");
+        backController = (BackController) ctx.getBean("backController");
     }
 
     @GetMapping("/")
@@ -44,11 +39,8 @@ public class AppController {
 
     @GetMapping("/users")
     public String users (Model model){
-        ResultSet resultset = jdbcHandler.getAllUsers();
-        userHandler.buildUsers(resultset);
-        UserList users = userHandler.fetchUsers();
+        UserList users = backController.getAllUsers();
         model.addAttribute("users", users );
         return "users";
     }
-
 }

@@ -1,4 +1,4 @@
-package com.example.demo.domain.JDBC;
+package com.example.demo.data.jdbc;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -12,12 +12,8 @@ import java.util.Properties;
 
 @Component
 @Scope("Singleton")
-public class JDBCEntity {
+public class JDBCConnector {
     private Connection connection;
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
 
     public boolean setConnection() {
         try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {

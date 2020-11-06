@@ -1,13 +1,11 @@
-package com.example.demo.domain.User;
+package com.example.demo.domain.user;
 
 import com.example.demo.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 @Component
 @Scope("Singleton")
@@ -17,16 +15,6 @@ public class UserHandler {
 
     UserHandler(UserList userList, UserFactory userFactory) {
         this.userList = userList;
-        this.userFactory = userFactory;
-    }
-
-    @Autowired
-    public void setUserList(UserList userList) {
-        this.userList = userList;
-    }
-
-    @Autowired
-    public void setUserFactory(UserFactory userFactory) {
         this.userFactory = userFactory;
     }
 

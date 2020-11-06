@@ -2,15 +2,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="jdbcEntity" class="com.example.demo.domain.JDBC.JDBCEntity" />
-    <bean id="jdbcWriter" class="com.example.demo.domain.JDBC.JDBCWriter" />
-    <bean id="jdbcHandler" class="com.example.demo.domain.JDBC.JDBCHandler">
-        <constructor-arg index="0" ref="jdbcEntity"/>
+    <bean id="jdbcConnctor" class="com.example.demo.data.jdbc.JDBCConnector" />
+    <bean id="jdbcWriter" class="com.example.demo.data.jdbc.JDBCWriter" />
+    <bean id="jdbcHandler" class="com.example.demo.data.jdbc.JDBCHandler">
+        <constructor-arg index="0" ref="jdbcConnctor"/>
     </bean>
-    <bean id="userList" class="com.example.demo.domain.User.UserList"/>
-    <bean id="userFactory" class="com.example.demo.domain.User.UserFactory"/>
-    <bean id="userHandler" class="com.example.demo.domain.User.UserHandler">
+    <bean id="userList" class="com.example.demo.domain.user.UserList"/>
+    <bean id="userFactory" class="com.example.demo.domain.user.UserFactory"/>
+    <bean id="userHandler" class="com.example.demo.domain.user.UserHandler">
         <constructor-arg index="0" ref="userList"/>
         <constructor-arg index="1" ref="userFactory"/>
+    </bean>
+    <bean id="backController" class="com.example.demo.domain.controller.BackController">
+        <constructor-arg index="0" ref="userHandler"/>
+        <constructor-arg index="1" ref="jdbcHandler"/>
     </bean>
 </beans>
