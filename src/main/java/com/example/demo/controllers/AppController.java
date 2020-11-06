@@ -39,11 +39,6 @@ public class AppController {
         return "error";
     }
 
-    @GetMapping("/user")
-    public String user (){
-        return "user";
-    }
-
     @GetMapping("/users")
     public String users (Model model){
         ResultSet resultset = jdbcHandler.getAllUsers();
