@@ -7,16 +7,13 @@ import org.springframework.stereotype.Component;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 @Component
 @Scope("Singleton")
 public class JDBCHandler {
-    private JDBCReader jdbcReader;
+    private JDBCEntity jdbcEntity;
     private JDBCWriter jdbcWriter;
     private Connection connection;
     private String url;
@@ -36,9 +33,9 @@ public class JDBCHandler {
     }
 
     @Autowired
-    public void setJdbcReader(JDBCReader jdbcReader) {
-        this.jdbcReader = jdbcReader;
-        jdbcReader.setConnection(connection);
+    public void setJdbcReader(JDBCEntity jdbcEntity) {
+        this.jdbcEntity = jdbcEntity;
+        jdbcEntity.setConnection(connection);
     }
 
     @Autowired
@@ -59,11 +56,21 @@ public class JDBCHandler {
 
     public ResultSet getAllUsers() {
         String statement = "SELECT * FROM mydb.users;";
-        return jdbcReader.query(statement);
+        return jdbcEntity.query(statement);
     }
 
-    public ResultSet getUser() {
-        String statement = "SELECT * FROM mydb.users;";
-        return jdbcReader.query(statement);
+    public ResultSet getUsers(int limit, int start_row) {
+        String statement = "SELECT * FROM mydb.users LIMIT " + limit + "," + start_row + ";";
+        return jdbcEntity.query(statement);
+    }
+
+    public ResultSet getUser(int id) {
+        String statement = "SELECT * FROM mydb.users WHERE ID LIKE " + id + ";";
+        return jdbcEntity.query(statement);
+    }
+
+    public ResultSet getUser(String username) {
+        String statement = "SELECT * FROM mydb.users WHERE username LIKE \"" + username + "\";";
+        return jdbcEntity.query(statement);
     }
 }

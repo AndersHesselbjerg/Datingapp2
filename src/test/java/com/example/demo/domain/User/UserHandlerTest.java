@@ -1,6 +1,6 @@
 package com.example.demo.domain.User;
 
-import com.example.demo.domain.JDBC.JDBCReader;
+import com.example.demo.domain.JDBC.JDBCEntity;
 import com.example.demo.models.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,7 +42,7 @@ class UserHandlerTest {
     void buildUsers() {
         try {
             // SETUP
-            JDBCReader jdbcReader = new JDBCReader();
+            JDBCEntity jdbcEntity = new JDBCEntity();
             userHandler = new UserHandler();
             userFactory = new UserFactory();
             users = new UserList();
@@ -50,8 +50,8 @@ class UserHandlerTest {
             userHandler.setUserList(users);
             String statement = "SELECT * FROM mydb.users;";
             Connection connection = DriverManager.getConnection(url, user, pass);
-            jdbcReader.setConnection(connection);
-            ResultSet resultSet = jdbcReader.query(statement);
+            jdbcEntity.setConnection(connection);
+            ResultSet resultSet = jdbcEntity.query(statement);
 
             // TEST STARTS HERE -------------------------------------------------------------------------
             userHandler.buildUsers(resultSet);

@@ -10,10 +10,12 @@ import java.sql.SQLException;
 
 @Component
 @Scope("Singleton")
-public class JDBCReader {
+public class JDBCEntity {
     private Connection connection;
 
-    public void setConnection(Connection connection) { this.connection = connection; }
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
 
     public ResultSet query(String statement) {
         try {
@@ -28,7 +30,7 @@ public class JDBCReader {
     public void alter(String statement) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         } catch (SQLException sqlException) {
             throw new NullPointerException();
         }

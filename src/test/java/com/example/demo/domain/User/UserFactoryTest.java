@@ -1,6 +1,6 @@
 package com.example.demo.domain.User;
 
-import com.example.demo.domain.JDBC.JDBCReader;
+import com.example.demo.domain.JDBC.JDBCEntity;
 import com.example.demo.models.User;
 import org.junit.jupiter.api.Test;
 
@@ -37,11 +37,11 @@ class UserFactoryTest {
     void create() {
         try {
             // SETUP
-            JDBCReader jdbcReader = new JDBCReader();
+            JDBCEntity jdbcEntity = new JDBCEntity();
             String statement = "SELECT * FROM mydb.users;";
             Connection connection = DriverManager.getConnection(url, user, pass);
-            jdbcReader.setConnection(connection);
-            ResultSet resultSet = jdbcReader.query(statement);
+            jdbcEntity.setConnection(connection);
+            ResultSet resultSet = jdbcEntity.query(statement);
 
             // TEST
             UserFactory userFactory = new UserFactory();

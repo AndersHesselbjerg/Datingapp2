@@ -43,12 +43,12 @@ class JDBCHandlerTest {
 
     @Test
     void getUsers() {
-        JDBCReader jdbcReader = new JDBCReader();
+        JDBCEntity jdbcEntity = new JDBCEntity();
         try {
             Connection connection = DriverManager.getConnection(url, user, pass);
-            jdbcReader.setConnection(connection);
+            jdbcEntity.setConnection(connection);
             String statement = "SELECT * FROM mydb.users;";
-            ResultSet resultSet = jdbcReader.query(statement);
+            ResultSet resultSet = jdbcEntity.query(statement);
             assertEquals(ResultSetImpl.class, resultSet.getClass());
             // Important detail when querying from dbms. Always get next item!
             if (resultSet.next()) {
