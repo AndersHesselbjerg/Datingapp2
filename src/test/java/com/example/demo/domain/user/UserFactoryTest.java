@@ -26,7 +26,7 @@ class UserFactoryTest {
                 User rasmus = userFactory.create(resultSet);
 
                 assertEquals("1", rasmus.getUserid());
-                assertEquals("Akila", rasmus.getUsername());
+                assertEquals("Akila", rasmus.getUserName());
                 assertEquals("Hello World", rasmus.getPassword());
                 assertEquals("Rasmus", rasmus.getFirstName());
                 assertEquals("Bilgård", rasmus.getLastName());

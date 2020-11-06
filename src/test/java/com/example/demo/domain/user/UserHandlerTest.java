@@ -34,7 +34,7 @@ class UserHandlerTest {
         // TESTING IF USER INFORMATION FITS THE DATABASE INFORMATION
         User rasmus = new_users.get(0);
         assertEquals("1", rasmus.getUserid());
-        assertEquals("Akila", rasmus.getUsername());
+        assertEquals("Akila", rasmus.getUserName());
         assertEquals("Hello World", rasmus.getPassword());
         assertEquals("Rasmus", rasmus.getFirstName());
         assertEquals("Bilgård", rasmus.getLastName());
