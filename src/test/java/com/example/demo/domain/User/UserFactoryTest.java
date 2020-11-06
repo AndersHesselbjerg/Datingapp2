@@ -38,10 +38,10 @@ class UserFactoryTest {
         try {
             // SETUP
             JDBCReader jdbcReader = new JDBCReader();
-            int[] ids = {0, 1};
+            String statement = "SELECT * FROM mydb.users;";
             Connection connection = DriverManager.getConnection(url, user, pass);
             jdbcReader.setConnection(connection);
-            ResultSet resultSet = jdbcReader.getUsers(ids);
+            ResultSet resultSet = jdbcReader.query(statement);
 
             // TEST
             UserFactory userFactory = new UserFactory();

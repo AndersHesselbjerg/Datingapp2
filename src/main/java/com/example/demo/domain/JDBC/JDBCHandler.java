@@ -57,11 +57,13 @@ public class JDBCHandler {
         }
     }
 
-    public ResultSet getUsers(int[] ids) {
-        return jdbcReader.getUsers(ids);
+    public ResultSet getAllUsers() {
+        String statement = "SELECT * FROM mydb.users;";
+        return jdbcReader.query(statement);
     }
 
-    public void getChat(int id) {
-        // return jdbcReader.getChat(id);
+    public ResultSet getUser() {
+        String statement = "SELECT * FROM mydb.users;";
+        return jdbcReader.query(statement);
     }
 }

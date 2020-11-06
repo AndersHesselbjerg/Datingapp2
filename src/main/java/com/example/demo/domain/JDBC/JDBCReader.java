@@ -12,14 +12,12 @@ import java.sql.SQLException;
 @Scope("Singleton")
 public class JDBCReader {
     private Connection connection;
-    private PreparedStatement preparedStatement;
 
     public void setConnection(Connection connection) { this.connection = connection; }
 
-    public ResultSet getUsers(int[] ids) {
-        String statement = "SELECT * FROM mydb.users;";
+    public ResultSet query(String statement) {
         try {
-            preparedStatement = connection.prepareStatement(statement);
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
             ResultSet resultSet = preparedStatement.executeQuery();
             return resultSet;
         } catch (SQLException sqlException) {
@@ -27,5 +25,12 @@ public class JDBCReader {
         }
     }
 
-    public void getChat(int id) { /* return ResultSet */ }
+    public void alter(String statement) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            ResultSet resultSet = preparedStatement.executeQuery();
+        } catch (SQLException sqlException) {
+            throw new NullPointerException();
+        }
+    }
 }

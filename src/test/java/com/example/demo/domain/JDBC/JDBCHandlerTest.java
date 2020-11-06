@@ -44,11 +44,11 @@ class JDBCHandlerTest {
     @Test
     void getUsers() {
         JDBCReader jdbcReader = new JDBCReader();
-        int[] ids = {0,1};
         try {
             Connection connection = DriverManager.getConnection(url, user, pass);
             jdbcReader.setConnection(connection);
-            ResultSet resultSet = jdbcReader.getUsers(ids);
+            String statement = "SELECT * FROM mydb.users;";
+            ResultSet resultSet = jdbcReader.query(statement);
             assertEquals(ResultSetImpl.class, resultSet.getClass());
             // Important detail when querying from dbms. Always get next item!
             if (resultSet.next()) {
