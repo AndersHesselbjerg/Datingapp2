@@ -27,7 +27,10 @@ public class UserFactory {
 
     public User create(ResultSet resultSet) {
         try {
-            String id = resultSet.getString("ID");
+            if (resultSet.isBeforeFirst()) {
+                resultSet.next();
+            }
+            int id = resultSet.getInt("ID");
             String username = resultSet.getString("username");
             String password = resultSet.getString("password");
             String firstname = resultSet.getString("first_name");

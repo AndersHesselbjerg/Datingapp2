@@ -2,7 +2,7 @@ package com.example.demo.domain;
 
 
 public class User {
-       private String userid;
+       private int userid;
        private String userName;
        private String password;
        private String firstName;
@@ -10,7 +10,7 @@ public class User {
        private String description;
        private String tags;
 
-       public User(String userid, String userName, String password, String firstName, String lastName, String description, String tags) {
+       public User(int userid, String userName, String password, String firstName, String lastName, String description, String tags) {
               this.userid = userid;
               this.userName = userName;
               this.password = password;
@@ -36,11 +36,11 @@ public class User {
               this.tags = tags;
        }
 
-       public String getUserid() {
+       public int getUserid() {
               return userid;
        }
 
-       public void setUserid(String userid) {
+       public void setUserid(int userid) {
               this.userid = userid;
        }
 

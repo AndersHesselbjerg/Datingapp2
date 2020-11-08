@@ -1,6 +1,5 @@
 package com.example.demo.data;
 
-import com.example.demo.data.Connector;
 import com.example.demo.domain.UserList;
 import com.example.demo.domain.User;
 import org.springframework.context.annotation.Scope;
@@ -10,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 
 @Component
 @Scope("Singleton")
@@ -35,12 +33,12 @@ public class UserMapper {
         }
     }
 
-    public UserList getUsers(int limit, int start_row) {
+    public UserList getUsers(int start_row, int limit) {
         String statement = "SELECT * FROM mydb.users LIMIT ?,?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setInt(1, limit);
-            preparedStatement.setInt(2, start_row);
+            preparedStatement.setInt(1, start_row);
+            preparedStatement.setInt(2, limit);
             ResultSet resultSet = preparedStatement.executeQuery();
             UserList users = userFactory.batch(resultSet);
             return users;
