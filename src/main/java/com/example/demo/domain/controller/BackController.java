@@ -29,4 +29,11 @@ public class BackController {
         UserList users = userHandler.fetchUsers();
         return users.get(0);
     }
+
+    public User getUserByID(int id) {
+        ResultSet resultSet = jdbcHandler.getUser(id);
+        userHandler.buildUsers(resultSet);
+        UserList users = userHandler.fetchUsers();
+        return users.get(0);
+    }
 }
