@@ -1,9 +1,11 @@
 package com.example.demo.domain.user;
 
-import com.example.demo.data.jdbc.JDBCConnector;
+import com.example.demo.data.Connector;
 import com.example.demo.models.User;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,10 +17,16 @@ class UserFactoryTest {
     void create() {
         try {
             // SETUP
-            JDBCConnector jdbcConnector = new JDBCConnector();
+            Connector connector = new Connector();
             String statement = "SELECT * FROM mydb.users;";
-            jdbcConnector.setConnection();
-            ResultSet resultSet = jdbcConnector.query(statement);
+            Connection connection = connector.setConnection();
+            ResultSet resultSet = null;
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(statement);
+                resultSet = preparedStatement.executeQuery();
+            } catch (SQLException sqlException) {
+                sqlException.printStackTrace();
+            }
 
             // TEST
             UserFactory userFactory = new UserFactory();

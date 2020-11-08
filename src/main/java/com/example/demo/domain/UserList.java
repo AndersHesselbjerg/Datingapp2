@@ -1,6 +1,5 @@
-package com.example.demo.domain.user;
+package com.example.demo.domain;
 
-import com.example.demo.models.User;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

@@ -1,9 +1,13 @@
 package com.example.demo.data.jdbc;
 
+import com.example.demo.data.Connector;
+import com.example.demo.models.User;
 import com.mysql.cj.jdbc.result.ResultSetImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -14,18 +18,19 @@ class JDBCHandlerTest {
 
     @Test
     void setConnection() {
-        JDBCConnector jdbcConnector = new JDBCConnector();
-        boolean test = jdbcConnector.setConnection();
-        assertEquals(true, test);
+        Connector connector = new Connector();
+        Connection test = connector.setConnection();
+        assertNotNull(test);
     }
 
     @Test
     void getUsers() {
-        JDBCConnector jdbcConnector = new JDBCConnector();
+        Connector connector = new Connector();
         try {
-            jdbcConnector.setConnection();
+            Connection connection = connector.setConnection();
             String statement = "SELECT * FROM mydb.users;";
-            ResultSet resultSet = jdbcConnector.query(statement);
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            ResultSet resultSet = preparedStatement.executeQuery();
             assertEquals(ResultSetImpl.class, resultSet.getClass());
             // Important detail when querying from dbms. Always get next item!
             if (resultSet.next()) {
@@ -45,5 +50,14 @@ class JDBCHandlerTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    void editUser() {
+        Connector connector = new Connector();
+        JDBCHandler jdbcHandler = new JDBCHandler(connector);
+
+        User user = new User("4", "Lilu", "Hello World", "Sabine", "Vedel", null, null);
+        jdbcHandler.updateUser(user);
     }
 }

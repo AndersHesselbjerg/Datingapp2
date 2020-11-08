@@ -1,35 +1,44 @@
 package com.example.demo.domain.user;
 
-import com.example.demo.data.jdbc.JDBCConnector;
+import com.example.demo.data.Connector;
 import com.example.demo.models.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
-class UserHandlerTest {
-    UserHandler userHandler;
+class UserControllerTest {
+    UserController userController;
     UserFactory userFactory;
     UserList users;
 
     @Test
     void buildUsers() {
         // SETUP
-        JDBCConnector jdbcConnector = new JDBCConnector();
+        Connector connector = new Connector();
         userFactory = new UserFactory();
         users = new UserList();
-        userHandler = new UserHandler(users, userFactory);
+        userController = new UserController(users, userFactory);
         String statement = "SELECT * FROM mydb.users;";
-        jdbcConnector.setConnection();
-        ResultSet resultSet = jdbcConnector.query(statement);
+        Connection connection = connector.setConnection();
+        ResultSet resultSet = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            resultSet = preparedStatement.executeQuery();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
 
         // TEST STARTS HERE -------------------------------------------------------------------------
-        userHandler.buildUsers(resultSet);
-        UserList new_users = userHandler.fetchUsers();
+        userController.buildUsers(resultSet);
+        UserList new_users = userController.fetchUsers();
 
         // TESTING IF USER INFORMATION FITS THE DATABASE INFORMATION
         User rasmus = new_users.get(0);
@@ -42,7 +51,7 @@ class UserHandlerTest {
         assertNull(rasmus.getTags());
 
         // TESTING IF THE USERLIST IS ERASED AFTER BEING FETCHED FOR THE FIRST TIME
-        UserList even_newer_users = userHandler.fetchUsers();
+        UserList even_newer_users = userController.fetchUsers();
         assertEquals(0, even_newer_users.size());
 
     }

@@ -1,6 +1,7 @@
-package com.example.demo.domain.user;
+package com.example.demo.data;
 
-import com.example.demo.models.User;
+import com.example.demo.domain.UserList;
+import com.example.demo.domain.User;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,20 @@ import java.sql.SQLException;
 @Component
 @Scope("singleton")
 public class UserFactory {
+
+    public UserList batch(ResultSet resultSet) {
+        try {
+            UserList users = new UserList();
+            while (resultSet.next()) {
+                User user = create(resultSet);
+                users.add(user);
+            }
+            return users;
+        } catch (SQLException e) {
+            throw new NullPointerException("Something is wrong with the ResultSet");
+        }
+    }
+
     public User create(ResultSet resultSet) {
         try {
             String id = resultSet.getString("ID");
