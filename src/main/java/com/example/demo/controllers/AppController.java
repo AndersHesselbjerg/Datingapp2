@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.domain.user.UserList;
-import com.example.demo.models.User;
+import com.example.demo.domain.UserList;
+import com.example.demo.domain.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
