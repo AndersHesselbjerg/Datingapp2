@@ -61,9 +61,10 @@ public class UserMapper {
     }
 
     public void updateUser(User user) {
-        String statement = "UPDATE users SET username=?, password=?, first_name=?, last_name=?, description=?, tags=? WHERE ID = 4;";
+        String statement = "UPDATE users SET username=?, password=?, first_name=?, last_name=?, description=?, tags=? WHERE ID = ?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setInt(7, user.getUserid());
             preparedStatement.setString(1, user.getUserName());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getFirstName());
