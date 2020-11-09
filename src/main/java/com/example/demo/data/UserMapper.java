@@ -47,6 +47,19 @@ public class UserMapper {
         }
     }
 
+    public User getUserById(int id) {
+        String statement = "SELECT * FROM mydb.users WHERE ID LIKE ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            User user = userFactory.create(resultSet);
+            return user;
+        } catch (SQLException sqlException) {
+            throw new NullPointerException("Your SQL statement is false");
+        }
+    }
+
     public User getUser(String username) {
         String statement = "SELECT * FROM mydb.users WHERE username LIKE ?;";
         try {

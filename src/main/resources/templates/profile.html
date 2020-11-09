@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="main_style.css"/>
@@ -9,7 +9,12 @@
 <header id="above">
 </header>
 <header id="header">
-    "BRUGERNAVN"'s PROFIL
+
+    <p th:text="${profileName}"></p>
+    <p th:text="${profileTags}"></p>
+    <p th:text="${profileDesc}"></p>
+
+
 </header>
 <div id="banner">
 </div>

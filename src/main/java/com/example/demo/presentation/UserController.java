@@ -23,6 +23,10 @@ public class UserController {
         return userMapper.getUsers(limit, start_row);
     }
 
+    public User getUserById(int id) {
+        return userMapper.getUserById(id);
+    }
+
     public User getUser(String username) {
         return userMapper.getUser(username);
     }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 
@@ -40,11 +42,13 @@ public class AppController {
         return "users";
     }
 
-    @RequestMapping(value="/profile")
-    public String profile(Model model, Principal principal) {
-        String userName = principal.getName();
-        User user = userController.getUser(userName);
-        model.addAttribute("user", user);
+    // Responds to /profile?id=userid
+    @RequestMapping(value="profile", method = {RequestMethod.GET, RequestMethod.POST})
+    public String profile(@RequestParam int id, Model model) {
+        User user = userController.getUserById(id);
+        model.addAttribute("profileName", user.getUserName());
+        model.addAttribute("profileDesc", user.getDescription());
+        model.addAttribute("profileTags", user.getTags());
         return "profile";
     }
 
