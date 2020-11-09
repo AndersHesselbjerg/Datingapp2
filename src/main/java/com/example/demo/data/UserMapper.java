@@ -74,17 +74,55 @@ public class UserMapper {
     }
 
     public void updateUser(User user) {
-        String statement = "UPDATE users SET username=?, password=?, first_name=?, last_name=?, description=?, tags=? WHERE ID = ?;";
+        String statement = "UPDATE users SET " +
+                "username=?, password=?, first_name=?, last_name=?, credit_info=?, phone_number=?, email=?, description=?, tags=?, score=? WHERE ID=?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setInt(7, user.getUserid());
+            preparedStatement.setInt(10, user.getUserid());
             preparedStatement.setString(1, user.getUserName());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getFirstName());
             preparedStatement.setString(4, user.getLastName());
-            preparedStatement.setString(5, user.getDescription());
-            preparedStatement.setString(6, user.getTags());
+            preparedStatement.setString(5, user.getCreditInfo());
+            preparedStatement.setString(6, user.getPhone());
+            preparedStatement.setString(7, user.getMail());
+            preparedStatement.setString(8, user.getDescription());
+            preparedStatement.setString(9, user.getTags());
+            preparedStatement.setInt(10, user.getScore());
             preparedStatement.executeUpdate();
+        } catch (SQLException sqlException) {
+            throw new NullPointerException("Your SQL statement is false");
+        }
+    }
+
+    public void insertUser(User user) {
+        String statement = "INSERT INTO users " +
+            "(username, password, first_name, last_name, credit_info, phone_number, email, description, tags, user_score)" +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setString(1, user.getUserName());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getFirstName());
+            preparedStatement.setString(4, user.getLastName());
+            preparedStatement.setString(5, user.getCreditInfo());
+            preparedStatement.setString(6, user.getPhone());
+            preparedStatement.setString(7, user.getMail());
+            preparedStatement.setString(8, user.getDescription());
+            preparedStatement.setString(9, user.getTags());
+            preparedStatement.setInt(10, user.getScore());
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            throw new NullPointerException("Your SQL statement is false");
+        }
+    }
+
+    public void deleteUser(User user) {
+        String statement = "DELETE FROM users WHERE ID=?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setInt(1, user.getUserid());
+            preparedStatement.execute();
         } catch (SQLException sqlException) {
             throw new NullPointerException("Your SQL statement is false");
         }

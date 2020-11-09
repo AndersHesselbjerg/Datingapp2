@@ -7,17 +7,57 @@ public class User {
        private String password;
        private String firstName;
        private String lastName;
+       private String creditInfo;
+       private String phone;
+       private String mail;
        private String description;
        private String tags;
+       private int score;
 
-       public User(int userid, String userName, String password, String firstName, String lastName, String description, String tags) {
+       User(int userid, String userName, String password, String firstName, String lastName, String creditInfo, String phone, String mail, String description, String tags, int score) {
               this.userid = userid;
               this.userName = userName;
               this.password = password;
               this.firstName = firstName;
               this.lastName = lastName;
+              this.creditInfo = creditInfo;
+              this.phone = phone;
+              this.mail = mail;
               this.description = description;
               this.tags = tags;
+              this.score = score;
+       }
+
+       public int getScore() {
+              return score;
+       }
+
+       public void setScore(int score) {
+              this.score = score;
+       }
+
+       public String getCreditInfo() {
+              return creditInfo;
+       }
+
+       public void setCreditInfo(String credit_info) {
+              this.creditInfo = credit_info;
+       }
+
+       public String getPhone() {
+              return phone;
+       }
+
+       public void setPhone(String phone) {
+              this.phone = phone;
+       }
+
+       public String getMail() {
+              return mail;
+       }
+
+       public void setMail(String mail) {
+              this.mail = mail;
        }
 
        public String getDescription() {
@@ -75,9 +115,4 @@ public class User {
        public void setLastName(String lastName) {
               this.lastName = lastName;
        }
-
-
-
-
-
 }
