@@ -46,7 +46,7 @@ public class AppController {
             @RequestParam String firstName,
             @RequestParam String lastName,
             @RequestParam String mail) {
-        User user = new User (0,
+        User user = new User(0,
                 userName,
                 password,
                 lastName,
@@ -56,13 +56,20 @@ public class AppController {
                 mail,
                 null,
                 null,
-                null ,
+                null,
                 0);
         userController.insertUser(user);
         return "success";
     }
 
 
+
+    @GetMapping("/admin")
+    public String admin(Model model) {
+        UserList users = userController.getAllUsers();
+        model.addAttribute("users", users);
+        return "admin";
+    }
 
     // Responds to /profile?id=userid
     @RequestMapping(value = "profile", method = {RequestMethod.GET, RequestMethod.POST})
@@ -74,4 +81,26 @@ public class AppController {
         return "profile";
     }
 
+    // Responds to /updateprofile?id=userid
+    @RequestMapping(value = "updateprofile", method = {RequestMethod.GET, RequestMethod.POST})
+    public String updateprofile(@RequestParam int id, Model model) {
+        User user = userController.getUserById(id);
+        model.addAttribute("profileName", user.getUserName());
+        model.addAttribute("profileDesc", user.getDescription());
+        model.addAttribute("profileTags", user.getTags());
+        model.addAttribute("profileFirstName", user.getFirstName());
+        model.addAttribute("profileLastName", user.getLastName());
+        model.addAttribute("profilePhone", user.getPhone());
+        model.addAttribute("profileMail", user.getMail());
+        model.addAttribute("profileTimeOfRegistry", user.getTimeOfRegistry());
+        model.addAttribute("profileCreditInfo", user.getCreditInfo());
+        return "updateprofile";
+    }
+
+    @PostMapping("/delete")
+    public String deleteUser(@RequestParam int id){
+        User user = userController.getUserById(id);
+        userController.deleteUser(user);
+        return "success";
+    }
 }
