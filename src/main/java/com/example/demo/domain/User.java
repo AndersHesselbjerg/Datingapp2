@@ -12,9 +12,10 @@ public class User {
        private String mail;
        private String description;
        private String tags;
+       private String timeOfRegistry;
        private int score;
 
-       User(int userid, String userName, String password, String firstName, String lastName, String creditInfo, String phone, String mail, String description, String tags, int score) {
+       public User(int userid, String userName, String password, String firstName, String lastName, String creditInfo, String phone, String mail, String description, String tags, String timeOfRegistry, int score) {
               this.userid = userid;
               this.userName = userName;
               this.password = password;
@@ -25,7 +26,16 @@ public class User {
               this.mail = mail;
               this.description = description;
               this.tags = tags;
+              this.timeOfRegistry = timeOfRegistry;
               this.score = score;
+       }
+
+       public String getTimeOfRegistry() {
+              return timeOfRegistry;
+       }
+
+       public void setTimeOfRegistry(String timeOfRegistry) {
+              this.timeOfRegistry = timeOfRegistry;
        }
 
        public int getScore() {

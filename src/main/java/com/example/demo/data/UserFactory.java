@@ -35,9 +35,14 @@ public class UserFactory {
             String password = resultSet.getString("password");
             String firstname = resultSet.getString("first_name");
             String lastname = resultSet.getString("last_name");
+            String creditInfo = resultSet.getString("credit_info");
+            String phone = resultSet.getString("phone_number");
+            String mail = resultSet.getString("email");
             String description = resultSet.getString("description");
             String tags = resultSet.getString("tags");
-            return new User(id, username, password, firstname, lastname, description, tags);
+            String time_of_registry = resultSet.getString("time_of_registry");
+            int score = resultSet.getInt("user_score");
+            return new User(id, username, password, firstname, lastname, creditInfo, phone, mail, description, tags, time_of_registry, score);
         } catch (SQLException sqlException) {
             throw new NullPointerException("Something went wrong, check your connection to dmbs");
         }
