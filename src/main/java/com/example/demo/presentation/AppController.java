@@ -59,7 +59,7 @@ public class AppController {
                 null ,
                 0);
         userController.insertUser(user);
-        return "succes";
+        return "success";
     }
 
 
