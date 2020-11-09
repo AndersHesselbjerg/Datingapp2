@@ -9,7 +9,7 @@
         <constructor-arg index="0" ref="connector"/>
         <constructor-arg index="1" ref="userFactory"/>
     </bean>
-    <bean id="userController" class="com.example.demo.controllers.UserController">
+    <bean id="userController" class="com.example.demo.presentation.UserController">
         <constructor-arg index="0" ref="userMapper"/>
     </bean>
     <bean id="chatList" class="com.example.demo.domain.ChatList"/>
@@ -18,7 +18,7 @@
         <constructor-arg index="0" ref="connector"/>
         <constructor-arg index="1" ref="chatFactory"/>
     </bean>
-    <bean id="chatController" class="com.example.demo.controllers.ChatController">
+    <bean id="chatController" class="com.example.demo.presentation.ChatController">
         <constructor-arg index="0" ref="chatMapper"/>
     </bean>
 </beans>

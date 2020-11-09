@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.example.demo.presentation;
 
 import com.example.demo.domain.UserList;
 import com.example.demo.domain.User;
