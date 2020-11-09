@@ -6,10 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -26,24 +23,49 @@ public class AppController {
     }
 
     @GetMapping("/")
-    public String index (){
+    public String index() {
         return "index";
     }
 
     @GetMapping("/error")
-    public String error (){
+    public String error() {
         return "error";
     }
 
     @GetMapping("/users")
-    public String users (Model model){
+    public String users(Model model) {
         UserList users = userController.getAllUsers();
-        model.addAttribute("users", users );
+        model.addAttribute("users", users);
         return "users";
     }
 
+    @PostMapping("/register")
+    public String registerUser(
+            @RequestParam String userName,
+            @RequestParam String password,
+            @RequestParam String firstName,
+            @RequestParam String lastName,
+            @RequestParam String mail) {
+        User user = new User (0,
+                userName,
+                password,
+                lastName,
+                firstName,
+                null,
+                null,
+                mail,
+                null,
+                null,
+                null ,
+                0);
+        userController.insertUser(user);
+        return "succes";
+    }
+
+
+
     // Responds to /profile?id=userid
-    @RequestMapping(value="profile", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "profile", method = {RequestMethod.GET, RequestMethod.POST})
     public String profile(@RequestParam int id, Model model) {
         User user = userController.getUserById(id);
         model.addAttribute("profileName", user.getUserName());
