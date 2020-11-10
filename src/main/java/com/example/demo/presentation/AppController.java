@@ -2,7 +2,6 @@ package com.example.demo.presentation;
 
 import com.example.demo.domain.UserList;
 import com.example.demo.domain.User;
-import com.mysql.cj.log.Log;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.security.auth.login.LoginException;
-import java.security.Principal;
 
 @Controller
 public class AppController {
@@ -52,7 +50,7 @@ public class AppController {
             @RequestParam String firstName,
             @RequestParam String lastName,
             @RequestParam String mail) {
-        User user = new User (0,
+        User user = new User(0,
                 userName,
                 password,
                 lastName,
@@ -62,12 +60,13 @@ public class AppController {
                 mail,
                 null,
                 null,
-                null ,
-                0);
+                null,
+                0,
+                "user");
+
         userController.insertUser(user);
         return "success";
     }
-
 
 
     // Responds to /profile?id=userid
@@ -80,7 +79,12 @@ public class AppController {
         return "profile";
     }
 
-}
+
+    private void setSessionInfo(WebRequest request, User user) {
+        // Place user info on session
+        request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
+        request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
+    }
 
     @PostMapping("/login")
     public String loginUser(WebRequest request) {
@@ -90,8 +94,10 @@ public class AppController {
         try {
             User user = loginController.login(email, pwd);
             setSessionInfo(request, user);
+            return "userpage"+user.getRole();
         } catch (LoginException e) {
             e.getStackTrace();
+            return "redirect:/";
         }
 
     }

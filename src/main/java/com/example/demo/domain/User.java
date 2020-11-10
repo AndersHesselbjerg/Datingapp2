@@ -14,8 +14,9 @@ public class User {
        private String tags;
        private String timeOfRegistry;
        private int score;
+       private String role;
 
-       public User(int userid, String userName, String password, String firstName, String lastName, String creditInfo, String phone, String mail, String description, String tags, String timeOfRegistry, int score) {
+       public User(int userid, String userName, String password, String firstName, String lastName, String creditInfo, String phone, String mail, String description, String tags, String timeOfRegistry, int score, String role) {
               this.userid = userid;
               this.userName = userName;
               this.password = password;
@@ -28,6 +29,7 @@ public class User {
               this.tags = tags;
               this.timeOfRegistry = timeOfRegistry;
               this.score = score;
+              this.role = role;
        }
 
        public User(String email, String password, String customer) {
@@ -134,6 +136,7 @@ public class User {
        public void setId(int id) {
        }
 
-       public void getRole() {
+       public Object getRole() {
+              return null;
        }
 }
