@@ -16,11 +16,11 @@ public class AppController {
     private static String path = "bean_config.xml";
     private static final ApplicationContext ctx = new ClassPathXmlApplicationContext(path);
     private final UserController userController;
-    private final CommController commController;
+    private final ChatController chatController;
 
     AppController() {
         userController = (UserController) ctx.getBean("userController");
-        commController = (CommController) ctx.getBean("commController");
+        chatController = (ChatController) ctx.getBean("chatController");
     }
 
     @GetMapping("/")

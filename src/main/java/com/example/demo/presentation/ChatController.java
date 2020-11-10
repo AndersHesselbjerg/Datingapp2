@@ -1,6 +1,6 @@
 package com.example.demo.presentation;
 
-import com.example.demo.data.CommMapper;
+import com.example.demo.data.ChatMapper;
 import com.example.demo.domain.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -8,18 +8,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("Singleton")
-public class CommController {
-    private final CommMapper commMapper;
+public class ChatController {
+    private final ChatMapper chatMapper;
 
-    CommController(CommMapper commMapper) {
-        this.commMapper = commMapper;
+    ChatController(ChatMapper chatMapper) {
+        this.chatMapper = chatMapper;
     }
 
     public ChatList getChats(User user) {
-        return commMapper.getChats(user);
+        return chatMapper.getChats(user);
     }
 
     public MessageList getMessages(Chat chat) {
-        return commMapper.getMessages(chat);
+        return chatMapper.getMessages(chat);
     }
 }

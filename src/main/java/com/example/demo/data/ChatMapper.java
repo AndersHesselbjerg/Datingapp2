@@ -14,12 +14,12 @@ import java.sql.SQLException;
 
 @Component
 @Scope("Singleton")
-public class CommMapper {
+public class ChatMapper {
     private final Connection connection;
     private final ChatFactory chatFactory;
     private final MessageFactory messageFactory;
 
-    CommMapper(Connector connector, ChatFactory chatFactory, MessageFactory messageFactory) {
+    ChatMapper(Connector connector, ChatFactory chatFactory, MessageFactory messageFactory) {
         this.connection = connector.getConnection();
         this.chatFactory = chatFactory;
         this.messageFactory = messageFactory;
