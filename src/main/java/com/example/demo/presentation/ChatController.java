@@ -16,10 +16,15 @@ public class ChatController {
     }
 
     public ChatList getChats(User user) {
-        return chatMapper.getChats(user);
+        ChatList chats = chatMapper.getChats(user);
+        for (Chat chat: chats) {
+            MessageList messages = getMessages(chat);
+            chat.setMessages(messages);
+        }
+        return chats;
     }
 
-    public MessageList getMessages(Chat chat) {
+    private MessageList getMessages(Chat chat) {
         return chatMapper.getMessages(chat);
     }
 }

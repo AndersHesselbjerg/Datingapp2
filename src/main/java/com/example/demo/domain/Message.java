@@ -2,18 +2,18 @@ package com.example.demo.domain;
 
 public class Message {
     private final String text;
-    private final int senderId;
+    private final String sender;
 
-    public Message(String text, int senderId) {
+    public Message(String text, String sender) {
         this.text = text;
-        this.senderId = senderId;
+        this.sender = sender;
     }
 
     public String getText() {
         return text;
     }
 
-    public int getSenderId() {
-        return senderId;
+    public String getSender() {
+        return sender;
     }
 }

@@ -19,7 +19,7 @@ public class ChatMapper {
     private final ChatFactory chatFactory;
     private final MessageFactory messageFactory;
 
-    ChatMapper(Connector connector, ChatFactory chatFactory, MessageFactory messageFactory) {
+    public ChatMapper(Connector connector, ChatFactory chatFactory, MessageFactory messageFactory) {
         this.connection = connector.getConnection();
         this.chatFactory = chatFactory;
         this.messageFactory = messageFactory;
