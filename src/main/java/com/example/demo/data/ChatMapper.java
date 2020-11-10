@@ -25,11 +25,11 @@ public class ChatMapper {
         this.messageFactory = messageFactory;
     }
 
-    public ChatList getChats(User user) {
+    public ChatList getChats(int userId) {
         try {
             String statement = "SELECT * FROM mydb.chats WHERE user_id=?;";
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setInt(1, user.getUserid());
+            preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             ChatList chats = chatFactory.batch(resultSet);
             return chats;
@@ -38,11 +38,11 @@ public class ChatMapper {
         }
     }
 
-    public MessageList getMessages(Chat chat) {
+    public MessageList getMessages(int chatId) {
         try {
             String statement = "SELECT text, sender_user_id FROM mydb.messages WHERE chat_id=?;";
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setInt(1, chat.getChat_id());
+            preparedStatement.setInt(1, chatId);
             ResultSet resultSet = preparedStatement.executeQuery();
             MessageList messages = messageFactory.batch(resultSet);
             return messages;
@@ -51,33 +51,13 @@ public class ChatMapper {
         }
     }
 
-    public void insertUser(User user) {
-        String statement = "INSERT INTO users " +
-                "(username, password, first_name, last_name, credit_info, phone_number, email, description, tags, user_score)" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    public void sendMessage(int chatId, String text, int userId) {
         try {
+            String statement = "INSERT INTO mydb.messages (chat_id, text, sender_user_id) VALUES(?,?,?);";
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setString(1, user.getUserName());
-            preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setString(3, user.getFirstName());
-            preparedStatement.setString(4, user.getLastName());
-            preparedStatement.setString(5, user.getCreditInfo());
-            preparedStatement.setString(6, user.getPhone());
-            preparedStatement.setString(7, user.getMail());
-            preparedStatement.setString(8, user.getDescription());
-            preparedStatement.setString(9, user.getTags());
-            preparedStatement.setInt(10, user.getScore());
-            preparedStatement.execute();
-        } catch (SQLException sqlException) {
-            throw new NullPointerException("Your SQL statement is false");
-        }
-    }
-
-    public void deleteUser(User user) {
-        String statement = "DELETE FROM users WHERE ID=?;";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setInt(1, user.getUserid());
+            preparedStatement.setInt(1, chatId);
+            preparedStatement.setString(2, text);
+            preparedStatement.setInt(3, userId);
             preparedStatement.execute();
         } catch (SQLException sqlException) {
             throw new NullPointerException("Your SQL statement is false");

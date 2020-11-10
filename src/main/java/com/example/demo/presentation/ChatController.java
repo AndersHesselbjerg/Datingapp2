@@ -16,7 +16,7 @@ public class ChatController {
     }
 
     public ChatList getChats(User user) {
-        ChatList chats = chatMapper.getChats(user);
+        ChatList chats = chatMapper.getChats(user.getUserid());
         for (Chat chat: chats) {
             MessageList messages = getMessages(chat);
             chat.setMessages(messages);
@@ -25,6 +25,10 @@ public class ChatController {
     }
 
     private MessageList getMessages(Chat chat) {
-        return chatMapper.getMessages(chat);
+        return chatMapper.getMessages(chat.getChat_id());
+    }
+
+    public void sendMessage(Chat chat, User user, String text) {
+        chatMapper.sendMessage(chat.getChat_id(), text, user.getUserid());
     }
 }
