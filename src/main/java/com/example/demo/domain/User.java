@@ -133,10 +133,8 @@ public class User {
               this.lastName = lastName;
        }
 
-       public void setId(int id) {
-       }
+       public String getRole(){return role;}
 
-       public Object getRole() {
-              return null;
-       }
+       public void setRole(String role) { this.role = role;}
+
 }
