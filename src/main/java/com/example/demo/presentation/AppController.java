@@ -81,9 +81,9 @@ public class AppController {
         return "profile";
     }
 
-    // Responds to /updateprofile?id=userid
-    @RequestMapping(value = "updateprofile", method = {RequestMethod.GET, RequestMethod.POST})
-    public String updateprofile(@RequestParam int id, Model model) {
+    // Responds to /editprofile?id=userid
+    @RequestMapping(value = "editprofile", method = {RequestMethod.GET, RequestMethod.POST})
+    public String editprofile(@RequestParam int id, Model model) {
         User user = userController.getUserById(id);
         model.addAttribute("profileName", user.getUserName());
         model.addAttribute("profileDesc", user.getDescription());
@@ -94,7 +94,29 @@ public class AppController {
         model.addAttribute("profileMail", user.getMail());
         model.addAttribute("profileTimeOfRegistry", user.getTimeOfRegistry());
         model.addAttribute("profileCreditInfo", user.getCreditInfo());
-        return "updateprofile";
+        return "editprofile";
+    }
+
+    @RequestMapping(value = "update", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String update(
+            @RequestParam int id,
+            @RequestParam String userName,
+            @RequestParam String tags,
+            @RequestParam String description,
+            @RequestParam String firstName,
+            @RequestParam String lastName,
+            @RequestParam String phone,
+            @RequestParam String mail) {
+        User user = userController.getUserById(id);
+        user.setUserName(userName);
+        user.setTags(tags);
+        user.setDescription(description);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setPhone(phone);
+        user.setMail(mail);
+        userController.updateUser(user);
+        return "update";
     }
 
     @PostMapping("/delete")

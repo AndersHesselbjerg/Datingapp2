@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="main_style.css"/>
+    <title>Profil</title>
+</head>
+<body>
+<header id="above">
+</header>
+<header id="header">
+
+    <p th:text="${profileName}"></p>
+    <p th:text="${profileTags}"></p>
+    <p th:text="${profileDesc}"></p>
+
+
+</header>
+<div id="banner">
+</div>
+<div id="content">
+
+    Dine konto oplysninger:
+    <form action="/update" method="PUT">
+        Bruger navn
+        <input type="text" name="userid" th:value="${profileId}">
+
+        <br> <input type="text" name="userName" th:placeholder="${profileName}" th:value="${profileName}">
+        <p></p>Tags
+        <br> <input type="text" name="tags" th:placeholder="${profileTags}" th:value="${profileTags}">
+        <p></p>Beskrivelse
+        <br> <input type="text" name="description" th:placeholder="${profileDesc}" th:value="${profileDesc}">
+        <p></p>Fornavn
+        <br> <input type="text" name="firstName" th:placeholder="${profileFirstName}" th:value="${profileFirstName}">
+        <p></p>Efternavn
+        <br> <input type="text" name="lastName" th:placeholder="${profileLastName}" th:value="${profileLastName}">
+        <p></p>Telefon
+        <br> <input type="text" name="phone" th:placeholder="${profilePhone}" th:value="${profilePhone}">
+        <p></p>Email
+        <br> <input type="text" name="mail" th:placeholder="${profileMail}" th:value="${profileMail}">
+
+        <div class="button">
+            <input type="Submit" value="  Opdater!  ">
+        </div>
+    </form>
+
+
+</div>
+<footer>
+</footer>
+</body>
+</html>
