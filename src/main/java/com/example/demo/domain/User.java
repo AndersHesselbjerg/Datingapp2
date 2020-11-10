@@ -30,6 +30,10 @@ public class User {
               this.score = score;
        }
 
+       public User(String email, String password, String customer) {
+
+       }
+
        public String getTimeOfRegistry() {
               return timeOfRegistry;
        }
@@ -69,6 +73,7 @@ public class User {
        public void setMail(String mail) {
               this.mail = mail;
        }
+
 
        public String getDescription() {
               return description;
@@ -124,5 +129,11 @@ public class User {
 
        public void setLastName(String lastName) {
               this.lastName = lastName;
+       }
+
+       public void setId(int id) {
+       }
+
+       public void getRole() {
        }
 }

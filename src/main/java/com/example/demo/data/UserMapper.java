@@ -1,5 +1,6 @@
 package com.example.demo.data;
 
+import ch.qos.logback.core.db.ConnectionSource;
 import com.example.demo.domain.UserList;
 import com.example.demo.domain.User;
 import org.springframework.context.annotation.Scope;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 public class UserMapper {
     private final Connection connection;
     private final UserFactory userFactory;
+    private ConnectionSource DBManager;
 
     UserMapper(Connector connector, UserFactory userFactory) {
         this.connection = connector.setConnection();
@@ -73,6 +75,19 @@ public class UserMapper {
         }
     }
 
+    public User getUserByMail(String email) {
+        String statement = "SELECT * FROM mydb.users WHERE email LIKE ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            User user = userFactory.create(resultSet);
+            return user;
+        } catch (SQLException sqlException) {
+            throw new NullPointerException("Your SQL statement is false");
+        }
+    }
+
     public void updateUser(User user) {
         String statement = "UPDATE users SET " +
                 "username=?, password=?, first_name=?, last_name=?, credit_info=?, phone_number=?, email=?, description=?, tags=?, user_score=? WHERE ID=?;";
@@ -93,6 +108,7 @@ public class UserMapper {
         } catch (SQLException sqlException) {
             throw new NullPointerException("Your SQL statement is false");
         }
+
     }
 
     public void insertUser(User user) {
@@ -125,6 +141,8 @@ public class UserMapper {
             preparedStatement.execute();
         } catch (SQLException sqlException) {
             throw new NullPointerException("Your SQL statement is false");
+
         }
     }
 }
+
