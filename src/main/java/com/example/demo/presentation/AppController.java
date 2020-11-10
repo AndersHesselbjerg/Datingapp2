@@ -87,18 +87,24 @@ public class AppController {
     }
 
     @PostMapping("/login")
-    public String loginUser(WebRequest request) {
+    public String loginUser(WebRequest request) throws LoginException {
         //Retrieve values from HTML form via WebRequest
-        String email = request.getParameter("email");
+        String email = request.getParameter("mail");
         String pwd = request.getParameter("password");
-        try {
+
             User user = loginController.login(email, pwd);
             setSessionInfo(request, user);
-            return "userpage"+user.getRole();
-        } catch (LoginException e) {
-            e.getStackTrace();
-            return "redirect:/";
-        }
+            return "loggedin";
+    }
 
+    @GetMapping("/loggedin")
+    public String loggedin(WebRequest request) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+
+        if (user != null ) {
+            return "loggedin";
+        }
+        else
+            return "redirect:/";
     }
 }
