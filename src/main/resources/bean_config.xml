@@ -21,4 +21,7 @@
     <bean id="chatController" class="com.example.demo.presentation.ChatController">
         <constructor-arg index="0" ref="chatMapper"/>
     </bean>
+    <bean id="loginController" class="com.example.demo.presentation.LoginController">
+        <constructor-arg index="0" ref="userMapper"/>
+    </bean>
 </beans>
