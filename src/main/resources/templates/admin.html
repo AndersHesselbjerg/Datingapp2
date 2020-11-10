@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="main_style.css"/>
@@ -14,6 +14,33 @@
 <div id="banner">
 </div>
 <div id="content">
+    <form th:action="@{/delete}" th:object="${user}" method="POST">
+        Slet bruger via ID
+        <br> <input type="text" name="id"required>
+        <div id="button">
+            <p></p><input type="Submit" value="  Slet!  ">
+        </div>
+    </form>
+    <div th:if="${not #lists.isEmpty(users)}">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Brugernavn</th>
+                <th>Tags</th>
+                <th>Beskrivelse</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.userid}"></td>
+                <td th:text="${user.userName}"></td>
+                <td th:text="${user.description}"></td>
+                <td th:text="${user.tags}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <footer>
 </footer>

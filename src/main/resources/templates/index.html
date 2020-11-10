@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="main_style.css"/>
@@ -27,15 +27,17 @@
         </form>
     </div>
     <div id="signupfields">
-        <form action="/register" method="POST">
+        <form th:action="@{/register}" th:object="${user}" method="POST">
             Bruger navn
-            <br> <input type="text" name="userName">
+            <br> <input type="text" name="userName"required>
             <p></p>Password
-            <br> <input type="password" name="password">
+            <br> <input type="password" name="password"required>
             <p></p>Fornavn
-            <br> <input type="text" name="firstName">
+            <br> <input type="text" name="firstName"required>
             <p></p>Efternavn
-            <br> <input type="text" name="lastName">
+            <br> <input type="text" name="lastName"required>
+            <p></p>Email
+            <br> <input type="email" name="mail"required>
             <p></p>
             <div id="button">
                 <p></p><input type="Submit" value="  Sign up!  ">
