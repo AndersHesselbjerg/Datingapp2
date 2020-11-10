@@ -17,7 +17,7 @@ public class UserMapper {
     private final UserFactory userFactory;
 
     UserMapper(Connector connector, UserFactory userFactory) {
-        this.connection = connector.setConnection();
+        this.connection = connector.getConnection();
         this.userFactory = userFactory;
     }
 

@@ -2,5 +2,5 @@ package com.example.demo.domain;
 
 import java.util.ArrayList;
 
-public class ChatList extends ArrayList<Chat> {
+public class MessageList extends ArrayList<Message> {
 }

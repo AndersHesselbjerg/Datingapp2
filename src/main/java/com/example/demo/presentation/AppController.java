@@ -11,18 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
-
 @Controller
 public class AppController {
     private static String path = "bean_config.xml";
     private static final ApplicationContext ctx = new ClassPathXmlApplicationContext(path);
     private final UserController userController;
-    private final ChatController chatController;
+    private final CommController commController;
 
     AppController() {
         userController = (UserController) ctx.getBean("userController");
-        chatController = (ChatController) ctx.getBean("chatController");
+        commController = (CommController) ctx.getBean("commController");
     }
 
     @GetMapping("/")
