@@ -55,6 +55,13 @@ public class AppController {
             return "users";
     }
 
+    @GetMapping("/admin")           // Test uden authenticqation
+    public String admin( Model model) {
+        UserList users = userController.getAllUsers();
+        model.addAttribute("users", users);
+        return "admin";
+    }
+
     @PostMapping("/register")
     public String registerUser(
             @RequestParam String userName,
