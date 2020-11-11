@@ -69,7 +69,7 @@ public class AppController {
     }
 
 
-    /*/ Responds to /profile?id=userid
+    // Responds to /profile?id=userid
     @RequestMapping(value = "profile", method = {RequestMethod.GET, RequestMethod.POST})
     public String profile(@RequestParam int id, Model model) {
         User user = userController.getUserById(id);
@@ -78,7 +78,6 @@ public class AppController {
         model.addAttribute("profileTags", user.getTags());
         return "profile";
     }
-*/
 
     private void setSessionInfo(WebRequest request, User user) {
         // Place user info on session
@@ -97,11 +96,11 @@ public class AppController {
             return "loggedin";
     }
 
-    @GetMapping("/profile")
-    public String profile(WebRequest request) {
+    @GetMapping("/loggedin")
+    public String loggedin(WebRequest request) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         if (user != null ) {
-            return "profile";
+            return "loggedin";
         }
         else
             return "redirect:/";

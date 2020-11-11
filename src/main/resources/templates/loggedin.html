@@ -2,14 +2,25 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Customer page</title>
+    <link rel="stylesheet" type="text/css" href="main_style.css"/>
+    <title>Profil</title>
 </head>
 <body>
-<h1>Customer page</h1>
+<header id="above">
+</header>
+<header id="header">
 
-<p th:text="${session.user.mail}" th:unless="${session == null}">[...]</p>
-<p th:text="${session.user.password}" th:unless="${session == null}">[...]</p>
+    <p th:text="${session.user.userName}"></p>
+    <p th:text="${session.user.firstName}"></p>
+    <p th:text="${session.user.lastName}"></p>
 
-<span th:text="${error}"></span>
+
+</header>
+<div id="banner">
+</div>
+<div id="content">
+</div>
+<footer>
+</footer>
 </body>
 </html>
