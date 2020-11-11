@@ -11,39 +11,41 @@
 <header id="header">
     DATING &#127918; GAMING
 </header>
+<div class="topnav">
+    <a class="active" href="/users">PROFILER</a></li>
+    <a href="">MINE CHATS</a></li>
+    <a href="/loggedin">MIN PROFIL</a></li>
+    <a href="">LOG UD</a></li>
+</div>
 <div id="banner">
 </div>
 <div id="content">
-    <h1 style="font-size: 50px">PROFILER</h1>
+    <h1 style="font-size: 50px; text-align: center">PROFILER</h1>
 
     <form action="/getprofile" method=GET>
-        <table>
-            <tr>
-                <td>Find brugernavn:</td>
-                <td><input type="text" id="userName" name="userName"></td>
-            </tr>
-            <tr>
-                <td><input type="submit" id="submit" name="submit" value="Se profil"></td>
-            </tr>
-        </table>
+        Find Brugernavn:
+        <input type="text" id="userName" name="userName">
+        <input type="submit" id="submit" name="submit" value="SE PROFIL">
+        <p>
     </form>
     <div th:if="${not #lists.isEmpty(users)}">
-        <table>
+        <table class="content-table">
             <thead>
             <tr>
+                <th></th>
                 <th>Brugernavn</th>
                 <th>Tags</th>
                 <th>Beskrivelse</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
-
+                <td Profil billed her></td>
                 <td th:text="${user.userName}"></td>
-
                 <td th:text="${user.description}"></td>
                 <td th:text="${user.tags}"></td>
-                <td><a th:href="@{/profile?id={id}(id=${user.userid})}">view</a></td>
+                <td><a th:href="@{/profile?id={id}(id=${user.userid})}">SE PROFIL</a></td>
             </tr>
             </tbody>
         </table>
