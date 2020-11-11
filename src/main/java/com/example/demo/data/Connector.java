@@ -15,7 +15,7 @@ import java.util.Properties;
 public class Connector {
     private Connection connection;
 
-    public Connection setConnection() {
+    public Connector() {
         try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
             Properties properties = new Properties();
             properties.load(input);
@@ -23,7 +23,6 @@ public class Connector {
             String user = properties.getProperty("user");
             String pass = properties.getProperty("pass");
             connection = DriverManager.getConnection(url, user, pass);
-            return connection;
         } catch (SQLException e) {
             throw new NullPointerException("Check connection to Database");
         } catch (FileNotFoundException e) {
@@ -31,5 +30,9 @@ public class Connector {
         } catch (IOException e) {
             throw new NullPointerException("A IO Exception was thrown");
         }
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 }

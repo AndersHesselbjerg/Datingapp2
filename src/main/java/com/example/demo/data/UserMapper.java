@@ -18,8 +18,8 @@ public class UserMapper {
     private final UserFactory userFactory;
     private ConnectionSource DBManager;
 
-    UserMapper(Connector connector, UserFactory userFactory) {
-        this.connection = connector.setConnection();
+    public UserMapper(Connector connector, UserFactory userFactory) {
+        this.connection = connector.getConnection();
         this.userFactory = userFactory;
     }
 

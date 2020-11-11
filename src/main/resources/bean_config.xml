@@ -14,9 +14,13 @@
     </bean>
     <bean id="chatList" class="com.example.demo.domain.ChatList"/>
     <bean id="chatFactory" class="com.example.demo.data.ChatFactory"/>
+    <bean id="messageFactory" class="com.example.demo.data.MessageFactory">
+        <constructor-arg index="0" ref="userMapper"/>
+    </bean>
     <bean id="chatMapper" class="com.example.demo.data.ChatMapper">
         <constructor-arg index="0" ref="connector"/>
         <constructor-arg index="1" ref="chatFactory"/>
+        <constructor-arg index="2" ref="messageFactory"/>
     </bean>
     <bean id="chatController" class="com.example.demo.presentation.ChatController">
         <constructor-arg index="0" ref="chatMapper"/>
