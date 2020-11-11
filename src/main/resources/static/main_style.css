@@ -23,6 +23,12 @@ body {
     color: white;
 }
 
+hr.rounded {
+    border-top: 2px solid dimgrey;
+    border-radius: 2px;
+}
+
+
 #loginstatus {
     top: 0;
     right: 0;

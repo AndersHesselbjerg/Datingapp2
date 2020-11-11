@@ -37,10 +37,15 @@ public class AppController {
     }
 
     @GetMapping("/users")
-    public String users(Model model) {
+    public String users(WebRequest request, Model model) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         UserList users = userController.getAllUsers();
         model.addAttribute("users", users);
+        if (user != null ) {
         return "users";
+        }
+        else
+            return "redirect:/";
     }
 
     @PostMapping("/register")
@@ -79,6 +84,13 @@ public class AppController {
         return "profile";
     }
 
+    @GetMapping("/getprofile")
+    public String getprofile(WebRequest request, Model model){
+        String userName = request.getParameter("userName");
+        User user = userController.getUser(userName);
+        return profile(user.getUserid(), model);
+    }
+
     private void setSessionInfo(WebRequest request, User user) {
         // Place user info on session
         request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
@@ -90,11 +102,12 @@ public class AppController {
         //Retrieve values from HTML form via WebRequest
         String email = request.getParameter("mail");
         String pwd = request.getParameter("password");
-
             User user = loginController.login(email, pwd);
             setSessionInfo(request, user);
             return "loggedin";
     }
+
+
 
     @GetMapping("/loggedin")
     public String loggedin(WebRequest request) {

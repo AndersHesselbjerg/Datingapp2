@@ -14,11 +14,18 @@
 <div id="banner">
 </div>
 <div id="content">
+    <div id="bio">
+        <h1 style="font-size: 50px" th:text="${session.user.userName}"></h1>
+        <hr class="rounded">
+        <p>Tags:
+        <p th:text="${session.user.tags}"></p>
+        <p>Beskrivelse:</p>
+        <p th:text="${session.user.description}"></p>
+    </div>
+    <div id="profilepic">
 
-    <p th:text="${session.user.userName}"></p>
-    <p th:text="${session.user.firstName}"></p>
-    <p th:text="${session.user.lastName}"></p>
-
+    </div>
+    <a href="" style="font-size: 25px"> REDIGER PROFIL</a>
 
 </div>
 <footer>

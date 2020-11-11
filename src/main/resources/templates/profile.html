@@ -9,16 +9,24 @@
 <header id="above">
 </header>
 <header id="header">
-
-
-
+    DATING &#127918; GAMING
 </header>
 <div id="banner">
 </div>
 <div id="content">
-    <p th:text="${profileName}"></p>
-    <p th:text="${profileTags}"></p>
-    <p th:text="${profileDesc}"></p>
+    <div id="bio">
+        <h1 style="font-size: 50px" th:text="${profileName}"></h1>
+        <hr class="rounded">
+        <p>Tags:
+        <p th:text="${profileTags}"></p>
+        <p>Beskrivelse:</p>
+        <p th:text="${profileDesc}"></p>
+    </div>
+    <div id="profilepic">
+
+    </div>
+    <a href="" style="font-size: 25px"> ÅBEN CHAT</a>
+
 </div>
 <footer>
 </footer>
