@@ -23,15 +23,31 @@ body {
     color: white;
 }
 
+#loginstatus {
+    top: 0;
+    right: 0;
+    background-color: white;
+    border-radius: 15px 15px 15px 15px;
+    border: 3px solid #9ED36A;
+    width: 7%;
+    position: fixed;
+    text-align: center;
+    font-size: 1.5vw;
+    margin: 20px;
+}
+ .button {
+     align-content: center;
+ }
+
 #header {
     font-weight: bold;
-    background-color: #3F1B59;
-    padding: 20px;
+    background-color: #3F2DA5;
+    padding: 40px;
     align-content: center;
     text-align: center;
     color: white;
     width: 100%;
-    height: 20vh;
+    height: 150px;
     font-size: 400%;
 }
 
@@ -40,18 +56,24 @@ body {
 }
 
 #content {
-    text-align: center;
-    width: 750px;
+
+    width: 800px;
     margin: auto;
 }
 
 #loginfields {
-
+    background-color: #7E84F3;
+    border-radius: 15px 15px 15px 15px;
+    padding: 20px;
+    font-size: 20px;
     float: left;
 }
 
 #signupfields {
-
+    background-color: #7E6CFB;
+    border-radius: 15px 15px 15px 15px;
+    padding: 20px;
+    font-size: 20px;
     float: right;
 }
 

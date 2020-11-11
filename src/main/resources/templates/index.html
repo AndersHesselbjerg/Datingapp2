@@ -6,46 +6,50 @@
     <title>Home</title>
 </head>
 <body>
-<header id="above">
+<header id="loginstatus">
 </header>
 <header id="header">
-    DATING
+    DATING &#127918; GAMING
 </header>
 <div id="banner">
 </div>
 <div id="content">
-    <div id="loginfields">
-        <form action="/login" method="POST">
-            Bruger navn
-            <br> <input type="text" name="mail">
-            <p></p> Password
-            <br> <input type="password" name="password">
-            <p></p>
-            <div class="button">
-                <input type="Submit" value="  Log in!  ">
-            </div>
-        </form>
+    <div id="fields">
+        <div id="loginfields">
+            LOG IN!
+            <form action="/login" method="POST">
+                <p>Email
+                <p><input type="text" name="mail" style="font-size:20px" required>
+                <p> Password
+                <p><input type="password" name="password" style="font-size:20px" required>
+                <p>
+                <div class="button">
+                    <input type="Submit" value="  Log in!  ">
+                </div>
+            </form>
+        </div>
+        <iv id="signupfields">
+            ER DU IKKE BRUGER? SIGN UP HER!
+            <form th:action="@{/register}" th:object="${user}" method="POST">
+                <p>Brugernavn
+                <p><input type="text" name="userName" style="font-size:20px" required>
+                <p>Password
+                <p><input type="password" name="password" style="font-size:20px" required>
+                <p>Fornavn
+                <p><input type="text" name="firstName" style="font-size:20px" required>
+                <p>Efternavn
+                <p><input type="text" name="lastName" style="font-size:20px" required>
+                <p>Email
+                <p><input type="email" name="mail" style="font-size:20px" required>
+                <p>
+                <div class="button">
+                    <input type="Submit" value="  Sign up!  ">
+                </div>
+            </form>
     </div>
-    <div id="signupfields">
-        <form th:action="@{/register}" th:object="${user}" method="POST">
-            Bruger navn
-            <br> <input type="text" name="userName"required>
-            <p></p>Password
-            <br> <input type="password" name="password"required>
-            <p></p>Fornavn
-            <br> <input type="text" name="firstName"required>
-            <p></p>Efternavn
-            <br> <input type="text" name="lastName"required>
-            <p></p>Email
-            <br> <input type="email" name="mail"required>
-            <p></p>
-            <div id="button">
-                <p></p><input type="Submit" value="  Sign up!  ">
-            </div>
-        </form>
-    </div>
-    <div id="stats">
-    </div>
+</div>
+<div id="stats">
+</div>
 </div>
 </div>
 <footer>
