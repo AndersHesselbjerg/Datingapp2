@@ -9,7 +9,7 @@
 <header id="above">
 </header>
 <header id="header">
-    PROFILER
+    DATING &#127918; GAMING
 </header>
 <div id="banner">
 </div>
@@ -38,8 +38,10 @@
             <tr th:each="user : ${users}">
 
                 <td th:text="${user.userName}"></td>
+
                 <td th:text="${user.description}"></td>
                 <td th:text="${user.tags}"></td>
+                <td><a th:href="@{/profile?id={id}(id=${user.userid})}">view</a></td>
             </tr>
             </tbody>
         </table>
