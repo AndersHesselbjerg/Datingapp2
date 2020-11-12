@@ -33,7 +33,7 @@
             </tbody>
         </table>
     </div>
-    <form action="/sendmsg" method="POST">
+    <form action="/sendmsg" method="POST" style="align-content: center">
         <p><input type="text" name="msg" style="font-size:20px" required>
             <input type="hidden" name="id" th:value="${chatid}">
         <div class="button">
@@ -41,7 +41,38 @@
         </div>
     </form>
 </div>
-<footer>
+<div class="horizontalgap"></div>
+<footer class="footer">
+    <div id="leftfoot">
+        <a href="/users">
+            DATING &#127918; GAMING
+        </a><br>
+        <br>
+        <i>Copyright &copy 2020</i>
+    </div>
+    <div id="centerfoot">
+        <b></b>
+        <br>
+        <a href="/users">PROFILER</a>
+        <br>
+        <a href="/mychats">MINE CHATS</a>
+        <br>
+        <a href="/loggedin">MIN PROFIL</a>
+        <br>
+        <a href="/logout">LOG UD</a>
+    </div>
+    <div id="rightfoot">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-twitter"></a>
+        <a href="#" class="fa fa-linkedin"></a>
+        <a href="#" class="fa fa-youtube"></a>
+        <a href="#" class="fa fa-instagram"></a>
+        <a href="#" class="fa fa-snapchat-ghost"></a>
+
+    </div>
 </footer>
 
 </body>

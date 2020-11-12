@@ -151,9 +151,8 @@ public class AppController {
         return "loggedin";
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout() {
-        setSessionInfo(null, null);
         return "redirect:/";
     }
 
@@ -212,5 +211,12 @@ public class AppController {
         return "success";
     }
 
+    /*
+    * Mangler opret ny chat.
+    * Mangler billed upload.
+    * Mangler logout*
+    * Mangler Kandidat liste.
+    * Design
+    * */
 
 }
