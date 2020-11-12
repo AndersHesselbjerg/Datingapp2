@@ -24,7 +24,7 @@ public class Connector {
             String pass = properties.getProperty("pass");
             connection = DriverManager.getConnection(url, user, pass);
         } catch (SQLException e) {
-            throw new NullPointerException("Check connection to Database");
+            throw new NullPointerException(e.getMessage());
         } catch (FileNotFoundException e) {
             throw new NullPointerException("A FileNotFound Exception was thrown");
         } catch (IOException e) {
