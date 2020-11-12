@@ -9,41 +9,51 @@
 <header id="above">
 </header>
 <header id="header">
-
-    <p th:text="${profileName}"></p>
-    <p th:text="${profileTags}"></p>
-    <p th:text="${profileDesc}"></p>
-
-
+    DATING &#127918; GAMING
 </header>
+<div class="topnav">
+    <a href="/users">PROFILER</a></li>
+    <a href="/mychats">MINE CHATS</a></li>
+    <a class="active" href="/loggedin">MIN PROFIL</a></li>
+    <a href="/logout">LOG UD</a></li>
+</div>
 <div id="banner">
 </div>
 <div id="content">
 
-    Dine konto oplysninger:
-    <form action="/update" method="PUT">
+    <div id="editform">
+        <a href="/loggedin"> <- Tilbage til profil</a>
+    <p>Dine konto oplysninger:
+    <form action="/updateprofile" method="PUT">
+      <div style="float: left">
         Bruger navn
-        <input type="text" name="userid" th:value="${profileId}">
-
-        <br> <input type="text" name="userName" th:placeholder="${profileName}" th:value="${profileName}">
+        <br> <input type="text" name="userName" th:placeholder="${session.user.userName}" th:value="${session.user.userName}">
         <p></p>Tags
-        <br> <input type="text" name="tags" th:placeholder="${profileTags}" th:value="${profileTags}">
+        <br> <input type="text" name="tags" th:placeholder="${session.user.tags}" th:value="${session.user.tags}">
         <p></p>Beskrivelse
-        <br> <input type="text" name="description" th:placeholder="${profileDesc}" th:value="${profileDesc}">
+        <br> <input type="text" name="description" th:placeholder="${session.user.description}" th:value="${session.user.description}">
         <p></p>Fornavn
-        <br> <input type="text" name="firstName" th:placeholder="${profileFirstName}" th:value="${profileFirstName}">
+        <br> <input type="text" name="firstName" th:placeholder="${session.user.firstName}" th:value="${session.user.firstName}">
         <p></p>Efternavn
-        <br> <input type="text" name="lastName" th:placeholder="${profileLastName}" th:value="${profileLastName}">
+        <br> <input type="text" name="lastName" th:placeholder="${session.user.lastName}" th:value="${session.user.lastName}">
+      </div>
+        <div style="float: right">
         <p></p>Telefon
-        <br> <input type="text" name="phone" th:placeholder="${profilePhone}" th:value="${profilePhone}">
+        <br> <input type="text" name="phone" th:placeholder="${session.user.phone}" th:value="${session.user.phone}">
         <p></p>Email
-        <br> <input type="text" name="mail" th:placeholder="${profileMail}" th:value="${profileMail}">
-
-        <div class="button">
+        <br> <input type="text" name="mail" th:placeholder="${session.user.mail}" th:value="${session.user.mail}">
+        <p></p>Password
+        <br> <input type="text" name="password1" th:value="${session.user.password}">
+        <p></p>Skirv Password igen
+        <br> <input type="text" name="password2" th:value="${session.user.password}">
+        </div>
+        &nbsp;
+        <div style="clear: both;" class="button">
+            <p></p>
             <input type="Submit" value="  Opdater!  ">
         </div>
     </form>
-
+</div>
 
 </div>
 <footer>

@@ -1,8 +1,6 @@
 package com.example.demo.presentation;
 
-import com.example.demo.domain.ChatList;
-import com.example.demo.domain.UserList;
-import com.example.demo.domain.User;
+import com.example.demo.domain.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -60,6 +58,7 @@ public class AppController {
     public String chats(WebRequest request, Model model) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         ChatList mychats = chatController.getChats(user);
+
         model.addAttribute("mychats", mychats);
         if (user != null) {
             return "mychats";
@@ -110,6 +109,26 @@ public class AppController {
         return "profile";
     }
 
+    @RequestMapping(value = "chat", method = {RequestMethod.GET, RequestMethod.POST})
+    public String chat(@RequestParam int id, WebRequest request, Model model) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        ChatList chatlist = chatController.getChats(user);
+        Chat chat = chatlist.getById(id);
+        model.addAttribute("users", chatController.getUsers(id));
+        model.addAttribute("chatid", id);
+        model.addAttribute("chat", chat.getMessages());
+        return "chat";
+    }
+
+    @PostMapping("/sendmsg")
+    public String sendmsg(@RequestParam String msg, @RequestParam int id, WebRequest request) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        ChatList chatlist = chatController.getChats(user);
+        Chat chat = chatlist.getById(id);
+        return "chat";
+    }
+
+
     @GetMapping("/getprofile")
     public String getprofile(WebRequest request, Model model) {
         String userName = request.getParameter("userName");
@@ -133,6 +152,12 @@ public class AppController {
         return "loggedin";
     }
 
+    @PostMapping("/logout")
+    public String logout() {
+        setSessionInfo(null, null);
+        return "redirect:/";
+    }
+
     @GetMapping("/loggedin")
     public String loggedin(WebRequest request) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
@@ -140,6 +165,45 @@ public class AppController {
             return "loggedin";
         } else
             return "redirect:/";
+    }
+
+    @GetMapping("/editprofile")
+    public String editprofile(WebRequest request) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        if (user != null) {
+            return "editprofile";
+        } else
+            return "redirect:/";
+    }
+
+    @RequestMapping(value = "/updateprofile", method = {RequestMethod.GET, RequestMethod.POST})
+    public String updateprofile(@RequestParam String userName,
+                                @RequestParam String tags,
+                                @RequestParam String description,
+                                @RequestParam String firstName,
+                                @RequestParam String lastName,
+                                @RequestParam String phone,
+                                @RequestParam String mail,
+                                WebRequest request) throws LoginException {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        String password1 = request.getParameter("password1");
+        String password2 = request.getParameter("password2");
+        user.setUserName(userName);
+        user.setTags(tags);
+        user.setDescription(description);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setPhone(phone);
+        user.setMail(mail);
+        user.setPassword(password2);
+
+        userController.updateUser(user);
+
+        if (password1.equals(password2)) {
+            return "loggedin";
+
+        } else throw new LoginException("The two passwords did not match");
+
     }
 
     @PostMapping("/delete")

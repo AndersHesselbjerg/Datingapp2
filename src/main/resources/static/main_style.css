@@ -14,6 +14,10 @@ a {
     text-decoration: none;
 }
 
+input {
+    font-size: 20px;
+}
+
 a:hover {
     color: #F7EEC4;
     font-weight: bold;
@@ -115,6 +119,33 @@ color: white;
     clear: both;
 }
 
+.chat-table thead tr {
+    font-size: 25px;
+    background-color: #4ca1af;
+    color: white;
+    text-align: left;
+    font-weight: bold;
+
+}
+
+.chat-table th,
+.chat-table td {
+    font-size: 25px;
+    padding: 12px 15px;
+}
+
+.chat-table tbody tr {
+    height: 50px;
+}
+
+.chat-table tbody tr:nth-of-type(even) {
+    border-radius: 5px 5px 5px 5px;
+}
+
+.chat-table tbody tr:last-of-type {
+    border-bottom: 3px  solid #4ca1af;
+}
+
 .content-table {
     border-collapse: collapse;
     top: 0;
@@ -143,7 +174,6 @@ color: white;
 }
 
 .content-table tbody tr {
-
     height: 50px;
 }
 
@@ -153,6 +183,14 @@ color: white;
 
 .content-table tbody tr:last-of-type {
     border-bottom: 3px  solid #4ca1af;
+}
+
+#editform {
+    font-size: 25px;
+    background-color: #68a6b0;
+    border-radius: 15px 15px 15px 15px;
+    padding: 20px;
+    font-size: 20px;
 }
 
 div.horizontalgap {

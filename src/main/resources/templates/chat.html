@@ -20,28 +20,26 @@
 <div id="banner">
 </div>
 <div id="content">
-    <h1 style="font-size: 50px; text-align: center">MINE CHATS</h1>
+    <h1 style="font-size: 50px; text-align: center">CHAT MED <span th:each="user:${users}"></span><span th:text="${user}"></span></h1>
 
-    <div th:if="${not #lists.isEmpty(mychats)}">
-        <table class="content-table">
-            <thead>
-            <tr>
-                <th></th>
-                <th>Brugernavn</th>
-                <th>Tags</th>
-                <th>Beskrivelse</th>
-                <th></th>
-            </tr>
-            </thead>
+    <div th:if="${not #lists.isEmpty(chat)}">
+        <table class="chat-table">
             <tbody>
-            <tr th:each="chat : ${mychats}">
+            <tr th:each="Message : ${chat}">
                 <td Profil billed her></td>
-                <td th:text="${chat.chat_id}"></td>
-                <td><a th:href="@{/chat?id={id}(id=${chat.chat_id})}">GÅ TIL CHAT</a></td>
+                <td th:text="${Message.getSender()}"></td>
+                <td th:text="${Message.getText()}"></td>
             </tr>
             </tbody>
         </table>
     </div>
+    <form action="/sendmsg" method="POST">
+        <p><input type="text" name="msg" style="font-size:20px" required>
+            <input type="hidden" name="id" value="chatid">
+        <div class="button">
+            <input type="Submit" value="  SEND BESKED!  ">
+        </div>
+    </form>
 </div>
 <footer>
 </footer>

@@ -21,6 +21,7 @@
         <constructor-arg index="0" ref="connector"/>
         <constructor-arg index="1" ref="chatFactory"/>
         <constructor-arg index="2" ref="messageFactory"/>
+        <constructor-arg index="3" ref="userFactory"/>
     </bean>
     <bean id="chatController" class="com.example.demo.presentation.ChatController">
         <constructor-arg index="0" ref="chatMapper"/>

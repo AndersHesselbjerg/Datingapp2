@@ -2,6 +2,7 @@ package com.example.demo.domain;
 
 public class Chat {
     private final int chat_id;
+    private UserList users;
     private MessageList messages;
 
     public Chat(int chat_id) {
@@ -12,8 +13,16 @@ public class Chat {
         this.messages = messages;
     }
 
+    public void setUsers(UserList users) {
+        this.users = users;
+    }
+
     public MessageList getMessages() {
         return messages;
+    }
+
+    public UserList getUsers() {
+        return users;
     }
 
     public int getChat_id() {

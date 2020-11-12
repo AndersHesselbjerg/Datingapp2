@@ -16,7 +16,7 @@ class ChatMapperTest {
         UserFactory userFactory = new UserFactory();
         UserMapper userMapper = new UserMapper(connector, userFactory);
         MessageFactory messageFactory = new MessageFactory(userMapper);
-        ChatMapper chatMapper = new ChatMapper(connector, chatFactory, messageFactory);
+        ChatMapper chatMapper = new ChatMapper(connector, chatFactory, messageFactory, userFactory);
         ChatController chatController = new ChatController(chatMapper);
 
         // TEST
@@ -36,7 +36,7 @@ class ChatMapperTest {
         UserFactory userFactory = new UserFactory();
         UserMapper userMapper = new UserMapper(connector, userFactory);
         MessageFactory messageFactory = new MessageFactory(userMapper);
-        ChatMapper chatMapper = new ChatMapper(connector, chatFactory, messageFactory);
+        ChatMapper chatMapper = new ChatMapper(connector, chatFactory, messageFactory, userFactory);
         ChatController chatController = new ChatController(chatMapper);
 
         // TEST
