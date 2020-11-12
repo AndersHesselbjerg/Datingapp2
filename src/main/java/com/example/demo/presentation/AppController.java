@@ -1,5 +1,6 @@
 package com.example.demo.presentation;
 
+import com.example.demo.domain.ChatList;
 import com.example.demo.domain.UserList;
 import com.example.demo.domain.User;
 import org.springframework.context.ApplicationContext;
@@ -49,14 +50,25 @@ public class AppController {
     }*/
 
     @GetMapping("/users")           // Test uden authenticqation
-    public String users( Model model) {
+    public String users(Model model) {
         UserList users = userController.getAllUsers();
         model.addAttribute("users", users);
-            return "users";
+        return "users";
+    }
+
+    @GetMapping("/mychats")
+    public String chats(WebRequest request, Model model) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        ChatList mychats = chatController.getChats(user);
+        model.addAttribute("mychats", mychats);
+        if (user != null) {
+            return "mychats";
+        } else
+            return "redirect:/";
     }
 
     @GetMapping("/admin")           // Test uden authenticqation
-    public String admin( Model model) {
+    public String admin(Model model) {
         UserList users = userController.getAllUsers();
         model.addAttribute("users", users);
         return "admin";
@@ -99,7 +111,7 @@ public class AppController {
     }
 
     @GetMapping("/getprofile")
-    public String getprofile(WebRequest request, Model model){
+    public String getprofile(WebRequest request, Model model) {
         String userName = request.getParameter("userName");
         User user = userController.getUser(userName);
         return profile(user.getUserid(), model);
@@ -116,27 +128,26 @@ public class AppController {
         //Retrieve values from HTML form via WebRequest
         String email = request.getParameter("mail");
         String pwd = request.getParameter("password");
-            User user = loginController.login(email, pwd);
-            setSessionInfo(request, user);
-            return "loggedin";
+        User user = loginController.login(email, pwd);
+        setSessionInfo(request, user);
+        return "loggedin";
     }
-
-
 
     @GetMapping("/loggedin")
     public String loggedin(WebRequest request) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        if (user != null ) {
+        if (user != null) {
             return "loggedin";
-        }
-        else
+        } else
             return "redirect:/";
     }
 
     @PostMapping("/delete")
-    public String deleteUser(@RequestParam int id){
+    public String deleteUser(@RequestParam int id) {
         User user = userController.getUserById(id);
         userController.deleteUser(user);
         return "success";
     }
+
+
 }

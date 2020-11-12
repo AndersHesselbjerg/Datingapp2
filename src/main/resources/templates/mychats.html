@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="main_style.css"/>
-    <title>Admin</title>
+    <title>Profiler</title>
 </head>
 <body>
 <header id="above">
@@ -13,25 +13,20 @@
 </header>
 <div class="topnav">
     <a href="/users">PROFILER</a></li>
-    <a href="/mychats">MINE CHATS</a></li>
+    <a class="active" href="/mychats">MINE CHATS</a></li>
     <a href="/loggedin">MIN PROFIL</a></li>
     <a href="">LOG UD</a></li>
 </div>
 <div id="banner">
 </div>
 <div id="content">
-    <form th:action="@{/delete}" th:object="${user}" method="POST">
-        Slet bruger via ID
-        <br> <input type="text" name="id"required>
-        <div id="button">
-            <p></p><input type="Submit" value="  Slet!  ">
-        </div>
-    </form>
-    <div th:if="${not #lists.isEmpty(users)}">
+    <h1 style="font-size: 50px; text-align: center">MINE CHATS</h1>
+
+    <div th:if="${not #lists.isEmpty(mychats)}">
         <table class="content-table">
             <thead>
             <tr>
-                <th>ID</th>
+                <th></th>
                 <th>Brugernavn</th>
                 <th>Tags</th>
                 <th>Beskrivelse</th>
@@ -39,12 +34,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.userid}"></td>
-                <td th:text="${user.userName}"></td>
-                <td th:text="${user.description}"></td>
-                <td th:text="${user.tags}"></td>
-                <td><a th:href="@{/profile?id={id}(id=${user.userid})}">SE PROFIL</a></td>
+            <tr th:each="chat : ${mychats}">
+                <td Profil billed her></td>
+                <td th:text="${chat.chat_id}"></td>
+                <td><a th:href="@{/chat?id={id}(id=${chat.chat_id})}">GÅ TIL CHAT</a></td>
             </tr>
             </tbody>
         </table>
@@ -52,5 +45,6 @@
 </div>
 <footer>
 </footer>
+
 </body>
 </html>
