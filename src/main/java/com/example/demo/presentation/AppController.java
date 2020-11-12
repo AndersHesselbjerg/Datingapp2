@@ -35,7 +35,7 @@ public class AppController {
         return "error";
     }
 
-    /*@GetMapping("/users")
+    @GetMapping("/users")
     public String users(WebRequest request, Model model) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         UserList users = userController.getAllUsers();
@@ -45,13 +45,6 @@ public class AppController {
         }
         else
             return "redirect:/";
-    }*/
-
-    @GetMapping("/users")           // Test uden authenticqation
-    public String users(Model model) {
-        UserList users = userController.getAllUsers();
-        model.addAttribute("users", users);
-        return "users";
     }
 
     @GetMapping("/mychats")
