@@ -28,17 +28,15 @@
                 </div>
             </form>
         </div>
-        <iv id="signupfields">
+        <div id="signupfields">
             ER DU IKKE BRUGER? SIGN UP HER!
             <form th:action="@{/register}" th:object="${user}" method="POST">
-                <p>Brugernavn
+                <p>Brugernavn<span style="padding-left:7.7em"></span>Password
                 <p><input type="text" name="userName" style="font-size:20px" required>
-                <p>Password
-                <p><input type="password" name="password" style="font-size:20px" required>
-                <p>Fornavn
+                <span><input type="password" name="password" style="font-size:20px" required>
+                <p>Fornavn<span style="padding-left: 9.2em"></span>Efternavn
                 <p><input type="text" name="firstName" style="font-size:20px" required>
-                <p>Efternavn
-                <p><input type="text" name="lastName" style="font-size:20px" required>
+                <span><input type="text" name="lastName" style="font-size:20px" required>
                 <p>Email
                 <p><input type="email" name="mail" style="font-size:20px" required>
                 <p>
@@ -46,13 +44,31 @@
                     <input type="Submit" value="  Sign up!  ">
                 </div>
             </form>
+        </div>
     </div>
 </div>
-<div id="stats">
-</div>
-</div>
-</div>
-<footer>
+<div class="horizontalgap"></div>
+<footer class="footer">
+    <div id="leftfoot">
+        <a href="/users">
+            DATING &#127918; GAMING
+        </a><br>
+        <br>
+        <i>Copyright &copy 2020</i>
+    </div>
+    <div id="centerfoot">
+        <b>Sitemap</b>
+        <br>
+        <a href="/"></a>
+        <br>
+        <a href="/"></a>
+        <br>
+        <a href="/"></a>
+    </div>
+    <div id="rightfoot">
+        Social
+
+    </div>
 </footer>
 </body>
 </html>

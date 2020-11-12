@@ -132,4 +132,11 @@ public class AppController {
         else
             return "redirect:/";
     }
+
+    @PostMapping("/delete")
+    public String deleteUser(@RequestParam int id){
+        User user = userController.getUserById(id);
+        userController.deleteUser(user);
+        return "success";
+    }
 }
