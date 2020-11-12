@@ -114,10 +114,16 @@ public class AppController {
     }
 
     @PostMapping("/sendmsg")
-    public String sendmsg(@RequestParam String msg, @RequestParam int id, WebRequest request) {
+    public String sendmsg(@RequestParam String msg, @RequestParam int id, WebRequest request, Model model) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         ChatList chatlist = chatController.getChats(user);
         Chat chat = chatlist.getById(id);
+        chatController.sendMessage(chat,user,msg);
+        ChatList new_chatlist = chatController.getChats(user);
+        Chat new_chat = new_chatlist.getById(id);
+        model.addAttribute("users", chatController.getUsers(id));
+        model.addAttribute("chatid", id);
+        model.addAttribute("chat", new_chat.getMessages());
         return "chat";
     }
 

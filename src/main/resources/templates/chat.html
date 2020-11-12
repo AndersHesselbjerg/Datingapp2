@@ -35,7 +35,7 @@
     </div>
     <form action="/sendmsg" method="POST">
         <p><input type="text" name="msg" style="font-size:20px" required>
-            <input type="hidden" name="id" value="chatid">
+            <input type="hidden" name="id" th:value="${chatid}">
         <div class="button">
             <input type="Submit" value="  SEND BESKED!  ">
         </div>
