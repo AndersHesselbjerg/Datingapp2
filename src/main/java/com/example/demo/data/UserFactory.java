@@ -45,7 +45,7 @@ public class UserFactory {
             int score = resultSet.getInt("user_score");
             return new User(id, username, password, firstname, lastname, creditInfo, phone, mail, description, tags, time_of_registry, score, role);
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Something went wrong, check your connection to dmbs");
+            throw new NullPointerException(sqlException.getMessage());
         }
     }
 }

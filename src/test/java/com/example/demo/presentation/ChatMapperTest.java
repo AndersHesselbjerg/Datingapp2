@@ -48,6 +48,7 @@ class ChatMapperTest {
         ChatList new_chats = chatController.getChats(user);
         Chat new_chat = new_chats.get(0);
         MessageList messages = new_chat.getMessages();
+        System.out.println(messages.get(messages.size()-1).getText());
         assertEquals(send_text, messages.get(messages.size()-1).getText());
     }
 }

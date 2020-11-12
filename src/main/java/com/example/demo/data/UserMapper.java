@@ -31,7 +31,7 @@ public class UserMapper {
             UserList users = userFactory.batch(resultSet);
             return users;
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Your SQL statement is false");
+            throw new NullPointerException(sqlException.getMessage());
         }
     }
 
@@ -45,7 +45,7 @@ public class UserMapper {
             UserList users = userFactory.batch(resultSet);
             return users;
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Your SQL statement is false");
+            throw new NullPointerException(sqlException.getMessage());
         }
     }
 
@@ -58,7 +58,7 @@ public class UserMapper {
             User user = userFactory.create(resultSet);
             return user;
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Your SQL statement is false");
+            throw new NullPointerException(sqlException.getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ public class UserMapper {
             User user = userFactory.create(resultSet);
             return user;
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Your SQL statement is false");
+            throw new NullPointerException(sqlException.getMessage());
         }
     }
 
@@ -84,7 +84,7 @@ public class UserMapper {
             User user = userFactory.create(resultSet);
             return user;
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Your SQL statement is false");
+            throw new NullPointerException(sqlException.getMessage());
         }
     }
 
@@ -106,7 +106,7 @@ public class UserMapper {
             preparedStatement.setInt(10, user.getScore());
             preparedStatement.executeUpdate();
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Your SQL statement is false");
+            throw new NullPointerException(sqlException.getMessage());
         }
 
     }
@@ -129,7 +129,7 @@ public class UserMapper {
             preparedStatement.setInt(10, user.getScore());
             preparedStatement.execute();
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Your SQL statement is false");
+            throw new NullPointerException(sqlException.getMessage());
         }
     }
 
@@ -140,7 +140,7 @@ public class UserMapper {
             preparedStatement.setInt(1, user.getUserid());
             preparedStatement.execute();
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Your SQL statement is false");
+            throw new NullPointerException(sqlException.getMessage());
 
         }
     }
