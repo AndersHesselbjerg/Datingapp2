@@ -43,11 +43,11 @@ class ChatMapperTest {
         User user = userMapper.getUser("Akila");
         ChatList chats = chatController.getChats(user);
         Chat chat = chats.get(0);
-        String send_text = "Tester";
+        String send_text = "Jeg har købt rismælk!!!";
         // chatController.sendMessage(chat, user, send_text);
         ChatList new_chats = chatController.getChats(user);
-        Chat new_chat = chats.get(0);
+        Chat new_chat = new_chats.get(0);
         MessageList messages = new_chat.getMessages();
-        assertEquals("Tester", messages.get(messages.size()-1).getText());
+        assertEquals(send_text, messages.get(messages.size()-1).getText());
     }
 }
