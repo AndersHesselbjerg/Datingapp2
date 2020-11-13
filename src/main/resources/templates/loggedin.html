@@ -29,11 +29,32 @@
         <p th:text="${session.user.description}"></p>
     </div>
     <div id="profilepic">
-
     </div>
     <a href="/editprofile" style="font-size: 25px"> REDIGER PROFIL</a>
+</div>
+<div id="candidates">
+    <div th:if="${not #lists.isEmpty(candiates)}">
+        <table class="content-table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Brugernavn</th>
+                <th>Beskrivelse</th>
+                <th>Tags</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="candidate : ${candidates}">
+                <td Profil billed her></td>
+                <td th:text="${user.getUserById(candidate.getUser_id)}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </div>
+
 <div class="horizontalgap"></div>
 <footer class="footer">
     <div id="leftfoot">

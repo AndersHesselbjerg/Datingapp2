@@ -97,10 +97,12 @@ public class AppController {
     // Responds to /profile?id=userid
     @RequestMapping(value = "profile", method = {RequestMethod.GET, RequestMethod.POST})
     public String profile(@RequestParam int id, Model model) {
+
         User user = userController.getUserById(id);
         model.addAttribute("profileName", user.getUserName());
         model.addAttribute("profileDesc", user.getDescription());
         model.addAttribute("profileTags", user.getTags());
+        model.addAttribute("profileId", user.getUserid());
         return "profile";
     }
 
@@ -145,7 +147,6 @@ public class AppController {
 
     @PostMapping("/login")
     public String loginUser(WebRequest request) throws LoginException {
-        //Retrieve values from HTML form via WebRequest
         String email = request.getParameter("mail");
         String pwd = request.getParameter("password");
         User user = loginController.login(email, pwd);
@@ -159,8 +160,10 @@ public class AppController {
     }
 
     @GetMapping("/loggedin")
-    public String loggedin(WebRequest request) {
+    public String loggedin(WebRequest request, Model model) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        model.addAttribute("candidates", candidateController.getCandidatesOfUserID(user.getUserid(),1,20));
+        model.addAttribute("users", userController.getAllUsers());
         if (user != null) {
             return "loggedin";
         } else
@@ -210,6 +213,16 @@ public class AppController {
     public String deleteUser(@RequestParam int id) {
         User user = userController.getUserById(id);
         userController.deleteUser(user);
+        return "success";
+    }
+
+    @PostMapping("/addcandidate")
+    public String registerUser(
+            @RequestParam int user_id,
+            WebRequest request) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        Candidate candidate = new Candidate(user_id, user.getUserid());
+        candidateController.InsertCandidate(candidate);
         return "success";
     }
 

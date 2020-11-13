@@ -33,7 +33,13 @@
 
     </div>
     <a href="/chat" style="font-size: 25px"> ÅBEN CHAT</a>
-
+    <p></p>
+    <form action="/addcandidate" method="POST" style="align-content: center">
+        <input type="hidden" name="user_id" th:value="${profileId}">
+        <div class="button">
+            <input type="Submit" style="font-size: 25px" value="  TILFØJ SOM KANDIDAT  ">
+        </div>
+    </form>
 </div>
 <div class="horizontalgap"></div>
 <footer class="footer">
@@ -57,7 +63,8 @@
     </div>
     <div id="rightfoot">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <a href="#" class="fa fa-facebook"></a>
         <a href="#" class="fa fa-twitter"></a>
