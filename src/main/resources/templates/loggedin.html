@@ -12,7 +12,7 @@
     DATING &#127918; GAMING
 </header>
 <div class="topnav">
-    <a  href="/users">PROFILER</a></li>
+    <a href="/users">PROFILER</a></li>
     <a href="/mychats">MINE CHATS</a></li>
     <a class="active" href="/loggedin">MIN PROFIL</a></li>
     <a href="/logout">LOG UD</a></li>
@@ -27,12 +27,27 @@
         <p th:text="${session.user.tags}"></p>
         <p>Beskrivelse:</p>
         <p th:text="${session.user.description}"></p>
+        <div id="profilepic">
+        </div>
+        <a href="/editprofile" style="font-size: 25px"> REDIGER PROFIL</a>
+        <div th:if="${not #lists.isEmpty(candidates)}">
+            <table class="content-table">
+                <thead>
+                <tr>
+                    <th>Kandidater</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${candidates}">
+                    <td></td>
+                    <td th:text="${user.userName}"></td>
+                    <td><a th:href="@{/profile?id={id}(id=${user.userid})}">SE PROFIL</a></td>
+                    <td><a th:href="@{/deletecandidate?id={id}(id=${user.userid})}">SLET KANDIDAT</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div id="profilepic">
-
-    </div>
-    <a href="/editprofile" style="font-size: 25px"> REDIGER PROFIL</a>
-
 </div>
 <div class="horizontalgap"></div>
 <footer class="footer">
@@ -56,7 +71,8 @@
     </div>
     <div id="rightfoot">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <a href="#" class="fa fa-facebook"></a>
         <a href="#" class="fa fa-twitter"></a>

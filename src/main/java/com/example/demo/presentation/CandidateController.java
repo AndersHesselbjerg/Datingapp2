@@ -19,6 +19,11 @@ public class CandidateController {
         return candidateMapper.getCandidatesOfUser(userID, limit, start_row);
     }
 
+    public String getUsernameByCandidate(Candidate candidate){ return candidateMapper.getUsernameByCandidate(candidate);
+    }
+
+    public void deleteCandidate(Candidate candidate){ candidateMapper.deleteCandidate(candidate);}
+
     public void InsertCandidate (Candidate candidate){candidateMapper.insertCandidate(candidate);}
 }
 
