@@ -26,8 +26,6 @@ public class ChatController {
         return chats;
     }
 
-
-
     private MessageList getMessages(Chat chat) {
         return chatMapper.getMessages(chat.getChat_id());
     }
@@ -39,6 +37,8 @@ public class ChatController {
     public Chat getChatById(int id) {
         Chat chat = chatMapper.getChatById(id);
         chat.setMessages(getMessages(chat));
+        UserList users = chatMapper.getUsers(chat.getChat_id());
+        chat.setUsers(users);
         return chat;
     }
 
@@ -46,4 +46,9 @@ public class ChatController {
         return chatMapper.getUsers(chatId);
     }
 
+    public Chat createChat(int user_id_01, int user_id_02) {
+        int chat_id = chatMapper.newChat(user_id_01);
+        chatMapper.addToChat(user_id_02, chat_id);
+        return chatMapper.getChatById(chat_id);
+    }
 }

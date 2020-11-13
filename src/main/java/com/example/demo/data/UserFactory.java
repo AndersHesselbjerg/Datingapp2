@@ -21,7 +21,7 @@ public class UserFactory {
             }
             return users;
         } catch (SQLException e) {
-            throw new NullPointerException("Something is wrong with the ResultSet");
+            throw new NullPointerException(e.getMessage());
         }
     }
 
