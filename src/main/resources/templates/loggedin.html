@@ -27,33 +27,37 @@
         <p th:text="${session.user.tags}"></p>
         <p>Beskrivelse:</p>
         <p th:text="${session.user.description}"></p>
-        <div id="profilepic" style="float: right">
-            <img class="le" th:src="*{'data:image/jpeg;base64,' + session.user.byteArrayAs64String()}">
-            <form method="POST" action="/upload" enctype="multipart/form-data">
-                <th:label path="file">Select a file to upload</th:label>
-                <input type="file" name="file"/>
-                <input type="submit" value="Submit"/>
-            </form>
-        </div>
-        <a href="/editprofile" style="font-size: 25px"> REDIGER PROFIL</a>
-        <div th:if="${not #lists.isEmpty(candidates)}">
-            <table class="content-table">
-                <thead>
-                <tr>
-                    <th>Kandidater</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="user : ${candidates}">
-                    <td> <img class="le" th:src="*{'data:image/jpeg;base64,' + user.byteArrayAs64String()}"> </td>
-                    <td th:text="${user.userName}"></td>
-                    <td><a th:href="@{/profile?id={id}(id=${user.userid})}">SE PROFIL</a></td>
-                    <td><a th:href="@{/deletecandidate?id={id}(id=${user.userid})}">SLET KANDIDAT</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
+    <div id="profilepic" style="float: right">
+        <img class="lee" th:src="*{'data:image/jpeg;base64,' + session.user.byteArrayAs64String()}">
+    </div>
+    <p></p>
+    <form method="POST" action="/upload" enctype="multipart/form-data" style="clear: both">
+        <th:label path="file">Vælg nyt profilbillede</th:label>
+        <input type="file" name="file"/>
+        <input type="submit" value="Submit"/>
+    </form>
+    <p></p>
+    <a href="/editprofile" style="font-size: 25px"> REDIGER PROFIL</a>
+    <p></p>
+    <div th:if="${not #lists.isEmpty(candidates)}">
+        <table class="content-table">
+            <thead>
+            <tr>
+                <th>Kandidater</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${candidates}">
+                <td><img class="le" th:src="*{'data:image/jpeg;base64,' + user.byteArrayAs64String()}"></td>
+                <td th:text="${user.userName}"></td>
+                <td><a th:href="@{/profile?id={id}(id=${user.userid})}">SE PROFIL</a></td>
+                <td><a th:href="@{/deletecandidate?id={id}(id=${user.userid})}">SLET KANDIDAT</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 <div class="horizontalgap"></div>
 <footer class="footer">

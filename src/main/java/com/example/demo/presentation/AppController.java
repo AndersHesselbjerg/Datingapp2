@@ -208,16 +208,23 @@ public class AppController {
                 candidateController.deleteCandidate(ca);
             }
         }
-        return "success";
+        return "loggedin";
     }
 
     @PostMapping("/addcandidate")
     public String registerUser(
             @RequestParam int user_id,
-            WebRequest request) {
+            WebRequest request, Model model) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         Candidate candidate = new Candidate(user_id, user.getUserid());
         candidateController.InsertCandidate(candidate);
+        CandidateList candidateList = candidateController.getCandidatesOfUserID(user.getUserid(), 1, 20);
+        UserList userList = new UserList();
+        for (Candidate ca : candidateList) {
+            userList.add(userController.getUserById(ca.getUser_id()));
+        }
+        model.addAttribute("candidates", userList);
+        model.addAttribute("users", userController.getAllUsers());
         return "loggedin";
     }
 
@@ -246,9 +253,11 @@ public class AppController {
 
     @PostMapping("/newchat")
     public String newchat(
-            @RequestParam int user_id, WebRequest request) {
+            @RequestParam int user_id, WebRequest request,Model model) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         chatController.createChat(user.getUserid(),user_id);
+        ChatList mychats = chatController.getChats(user);
+        model.addAttribute("mychats", mychats);
         return "mychats";
     }
 
