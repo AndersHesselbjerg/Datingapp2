@@ -32,6 +32,7 @@
     <bean id="candidateMapper" class="com.example.demo.data.CandidateMapper">
             <constructor-arg index="0" ref="connector"/>
             <constructor-arg index="1" ref="candidateFactory"/>
+            <constructor-arg index="2" ref="userMapper"/>
     </bean>
     <bean id="candidateList" class="com.example.demo.domain.CandidateList"/>
     <bean id="candidateController" class="com.example.demo.presentation.CandidateController">

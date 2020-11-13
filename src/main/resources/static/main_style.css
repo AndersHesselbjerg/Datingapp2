@@ -36,7 +36,7 @@ body {
 }
 
 hr.rounded {
-    border-top: 2px solid dimgrey;
+    border-top: 2px solid antiquewhite;
     border-radius: 2px;
 }
 
@@ -150,6 +150,7 @@ color: white;
     color: white;
     text-align: left;
     font-weight: bold;
+    border-radius: 5px 5px 5px 5px;
 
 }
 

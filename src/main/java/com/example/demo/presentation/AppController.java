@@ -42,10 +42,9 @@ public class AppController {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         UserList users = userController.getAllUsers();
         model.addAttribute("users", users);
-        if (user != null ) {
-        return "users";
-        }
-        else
+        if (user != null) {
+            return "users";
+        } else
             return "redirect:/";
     }
 
@@ -122,7 +121,7 @@ public class AppController {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         ChatList chatlist = chatController.getChats(user);
         Chat chat = chatlist.getById(id);
-        chatController.sendMessage(chat,user,msg);
+        chatController.sendMessage(chat, user, msg);
         ChatList new_chatlist = chatController.getChats(user);
         Chat new_chat = new_chatlist.getById(id);
         model.addAttribute("users", chatController.getUsers(id));
@@ -146,11 +145,18 @@ public class AppController {
     }
 
     @PostMapping("/login")
-    public String loginUser(WebRequest request) throws LoginException {
+    public String loginUser(WebRequest request, Model model) throws LoginException {
         String email = request.getParameter("mail");
         String pwd = request.getParameter("password");
         User user = loginController.login(email, pwd);
         setSessionInfo(request, user);
+        CandidateList candidateList = candidateController.getCandidatesOfUserID(user.getUserid(), 1, 20);
+        UserList userList = new UserList();
+        for (Candidate ca : candidateList) {
+            userList.add(userController.getUserById(ca.getUser_id()));
+        }
+        model.addAttribute("candidates", userList);
+        model.addAttribute("users", userController.getAllUsers());
         return "loggedin";
     }
 
@@ -162,7 +168,12 @@ public class AppController {
     @GetMapping("/loggedin")
     public String loggedin(WebRequest request, Model model) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        model.addAttribute("candidates", candidateController.getCandidatesOfUserID(user.getUserid(),1,20));
+        CandidateList candidateList = candidateController.getCandidatesOfUserID(user.getUserid(), 1, 20);
+        UserList userList = new UserList();
+        for (Candidate ca : candidateList) {
+            userList.add(userController.getUserById(ca.getUser_id()));
+        }
+        model.addAttribute("candidates", userList);
         model.addAttribute("users", userController.getAllUsers());
         if (user != null) {
             return "loggedin";
@@ -209,12 +220,24 @@ public class AppController {
 
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/deleteuser")
     public String deleteUser(@RequestParam int id) {
         User user = userController.getUserById(id);
         userController.deleteUser(user);
         return "success";
     }
+
+    @RequestMapping(value = "/deletecandidate", method = {RequestMethod.GET, RequestMethod.POST})
+    public String deletecandidate(@RequestParam int id, WebRequest request) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        CandidateList candidateList = candidateController.getCandidatesOfUserID(user.getUserid(), 1, 20);
+        for (Candidate ca : candidateList) {
+            if (ca.getUser_id() == id) {
+                candidateController.deleteCandidate(ca);
+            }
+        }return "success";
+    }
+
 
     @PostMapping("/addcandidate")
     public String registerUser(
@@ -223,15 +246,16 @@ public class AppController {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         Candidate candidate = new Candidate(user_id, user.getUserid());
         candidateController.InsertCandidate(candidate);
-        return "success";
+        return "loggedin";
     }
 
     /*
-    * Mangler opret ny chat.
-    * Mangler billed upload.
-    * Mangler logout*
-    * Mangler Kandidat liste.
-    * Design
-    * */
+     * Mangler opret ny chat.
+     * Mangler billed upload.
+     * Mangler logout*
+     * Mangler Kandidat liste.
+     *
+     * Design
+     * */
 
 }
