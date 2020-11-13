@@ -40,28 +40,7 @@ public class AppController {
         return "error";
     }
 
-    @GetMapping("/users")
-    public String users(WebRequest request, Model model) {
-        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        UserList users = userController.getAllUsers();
-        model.addAttribute("users", users);
-        if (user != null) {
-            return "users";
-        } else
-            return "redirect:/";
-    }
 
-    @GetMapping("/mychats")
-    public String chats(WebRequest request, Model model) {
-        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        ChatList mychats = chatController.getChats(user);
-
-        model.addAttribute("mychats", mychats);
-        if (user != null) {
-            return "mychats";
-        } else
-            return "redirect:/";
-    }
 
     @GetMapping("/admin")           // Test uden authenticqation
     public String admin(Model model) {
@@ -89,62 +68,11 @@ public class AppController {
                 null,
                 null,
                 0,
-                "user");
+                "user",
+                null);
 
         userController.insertUser(user);
         return "success";
-    }
-
-
-    // Responds to /profile?id=userid
-    @RequestMapping(value = "profile", method = {RequestMethod.GET, RequestMethod.POST})
-    public String profile(@RequestParam int id, Model model) {
-
-        User user = userController.getUserById(id);
-        model.addAttribute("profileName", user.getUserName());
-        model.addAttribute("profileDesc", user.getDescription());
-        model.addAttribute("profileTags", user.getTags());
-        model.addAttribute("profileId", user.getUserid());
-        return "profile";
-    }
-
-    @RequestMapping(value = "chat", method = {RequestMethod.GET, RequestMethod.POST})
-    public String chat(@RequestParam int id, WebRequest request, Model model) {
-        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        ChatList chatlist = chatController.getChats(user);
-        Chat chat = chatlist.getById(id);
-        model.addAttribute("users", chatController.getUsers(id));
-        model.addAttribute("chatid", id);
-        model.addAttribute("chat", chat.getMessages());
-        return "chat";
-    }
-
-    @PostMapping("/sendmsg")
-    public String sendmsg(@RequestParam String msg, @RequestParam int id, WebRequest request, Model model) {
-        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        ChatList chatlist = chatController.getChats(user);
-        Chat chat = chatlist.getById(id);
-        chatController.sendMessage(chat, user, msg);
-        ChatList new_chatlist = chatController.getChats(user);
-        Chat new_chat = new_chatlist.getById(id);
-        model.addAttribute("users", chatController.getUsers(id));
-        model.addAttribute("chatid", id);
-        model.addAttribute("chat", new_chat.getMessages());
-        return "chat";
-    }
-
-
-    @GetMapping("/getprofile")
-    public String getprofile(WebRequest request, Model model) {
-        String userName = request.getParameter("userName");
-        User user = userController.getUser(userName);
-        return profile(user.getUserid(), model);
-    }
-
-    private void setSessionInfo(WebRequest request, User user) {
-        // Place user info on session
-        request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
-        request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
     }
 
     @PostMapping("/login")
@@ -182,6 +110,47 @@ public class AppController {
             return "loggedin";
         } else
             return "redirect:/";
+    }
+
+
+    // Responds to /profile?id=userid
+    @RequestMapping(value = "profile", method = {RequestMethod.GET, RequestMethod.POST})
+    public String profile(@RequestParam int id, Model model) {
+
+        User user = userController.getUserById(id);
+        model.addAttribute("profilePic", user.byteArrayAs64String());
+        model.addAttribute("profileName", user.getUserName());
+        model.addAttribute("profileDesc", user.getDescription());
+        model.addAttribute("profileTags", user.getTags());
+        model.addAttribute("profileId", user.getUserid());
+        return "profile";
+    }
+
+
+
+    @GetMapping("/users")
+    public String users(WebRequest request, Model model) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        UserList users = userController.getAllUsers();
+        model.addAttribute("base64", user.byteArrayAs64String());
+        model.addAttribute("users", users);
+        if (user != null) {
+            return "users";
+        } else
+            return "redirect:/";
+    }
+
+    @GetMapping("/getprofile")
+    public String getprofile(WebRequest request, Model model) {
+        String userName = request.getParameter("userName");
+        User user = userController.getUser(userName);
+        return profile(user.getUserid(), model);
+    }
+
+    private void setSessionInfo(WebRequest request, User user) {
+        // Place user info on session
+        request.setAttribute("user", user, WebRequest.SCOPE_SESSION);
+        request.setAttribute("role", user.getRole(), WebRequest.SCOPE_SESSION);
     }
 
     @GetMapping("/editprofile")
@@ -238,9 +207,9 @@ public class AppController {
             if (ca.getUser_id() == id) {
                 candidateController.deleteCandidate(ca);
             }
-        }return "success";
+        }
+        return "success";
     }
-
 
     @PostMapping("/addcandidate")
     public String registerUser(
@@ -252,6 +221,57 @@ public class AppController {
         return "loggedin";
     }
 
+    @GetMapping("/mychats")
+    public String chats(WebRequest request, Model model) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        ChatList mychats = chatController.getChats(user);
+        model.addAttribute("mychats", mychats);
+        if (user != null) {
+            return "mychats";
+        } else
+            return "redirect:/";
+    }
+
+    @RequestMapping(value = "chat", method = {RequestMethod.GET, RequestMethod.POST})
+    public String chat(@RequestParam int id, WebRequest request, Model model) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        ChatList chatlist = chatController.getChats(user);
+        Chat chat = chatlist.getById(id);
+        model.addAttribute("names", chat.getNames());
+        model.addAttribute("users", chatController.getUsers(id));
+        model.addAttribute("chatid", id);
+        model.addAttribute("chat", chat.getMessages());
+        return "chat";
+    }
+
+    @PostMapping("/newchat")
+    public String newchat(
+            @RequestParam int user_id, WebRequest request) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        chatController.createChat(user.getUserid(),user_id);
+        return "mychats";
+    }
+
+    @PostMapping("/sendmsg")
+    public String sendmsg(@RequestParam String msg, @RequestParam int id, WebRequest request, Model model) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        ChatList chatlist = chatController.getChats(user);
+        Chat chat = chatlist.getById(id);
+        chatController.sendMessage(chat, user, msg);
+        ChatList new_chatlist = chatController.getChats(user);
+        Chat new_chat = new_chatlist.getById(id);
+        model.addAttribute("users", chatController.getUsers(id));
+        model.addAttribute("chatid", id);
+        model.addAttribute("chat", new_chat.getMessages());
+        return "chat";
+    }
+
+    @PostMapping("/upload")
+    public String handleFileUpload(@RequestParam("file") MultipartFile file, WebRequest request) {
+        User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
+        userController.addProfilePicture(user.getUserid(), file);
+        return "success";
+    }
 
     @PostMapping("/uploadimg")
     public String uploadimg(@RequestParam("file") MultipartFile file, ModelMap modelMap) {

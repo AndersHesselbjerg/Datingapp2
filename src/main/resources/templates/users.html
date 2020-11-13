@@ -32,7 +32,7 @@
         <table class="content-table">
             <thead>
             <tr>
-                <th></th>
+                <th>Billede</th>
                 <th>Brugernavn</th>
                 <th>Beskrivelse</th>
                 <th>Tags</th>
@@ -41,7 +41,7 @@
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
-                <td Profil billed her></td>
+                <td> <img class="le" th:src="*{'data:image/jpeg;base64,' + user.byteArrayAs64String()}"> </td>
                 <td th:text="${user.userName}"></td>
                 <td th:text="${user.description}"></td>
                 <td th:text="${user.tags}"></td>

@@ -25,6 +25,13 @@ public class Chat {
         return users;
     }
 
+    public String getNames() {
+        String usernames ="";
+        for (User user: users) {
+            usernames = usernames + " " +user.getUserName();
+        } return usernames;
+    }
+
     public int getChat_id() {
         return chat_id;
     }

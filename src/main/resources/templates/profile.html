@@ -21,7 +21,7 @@
 </div>
 <div id="content">
     <a href="/users"><- TILBAGE TIL PROFILER</a></li>
-    <div id="bio">
+    <div id="bio" style="float: left">
         <h1 style="font-size: 50px" th:text="${profileName}"></h1>
         <hr class="rounded">
         <p>Tags:
@@ -29,10 +29,15 @@
         <p>Beskrivelse:</p>
         <p th:text="${profileDesc}"></p>
     </div>
-    <div id="profilepic">
-
+    <div id="profilepic" style="float: right">
+        <img class="le" th:src="*{'data:image/jpeg;base64,' + profilePic}">
     </div>
-    <a href="/chat" style="font-size: 25px"> ÅBEN CHAT</a>
+    <form action="/newchat" method="POST" style="align-content: center; clear: both">
+        <input type="hidden" name="user_id" th:value="${profileId}">
+        <div class="button">
+            <input type="Submit" style="font-size: 25px" value="  ÅBEN NY CHAT  ">
+        </div>
+    </form>
     <p></p>
     <form action="/addcandidate" method="POST" style="align-content: center">
         <input type="hidden" name="user_id" th:value="${profileId}">

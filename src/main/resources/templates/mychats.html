@@ -26,16 +26,17 @@
         <table class="content-table">
             <thead>
             <tr>
+                <th>Billede</th>
+                <th>Brugere</th>
+                <th>CHAT ID</th>
                 <th></th>
-                <th>Brugernavn</th>
-                <th>Tags</th>
-                <th>Beskrivelse</th>
-                <th></th>
+
             </tr>
             </thead>
             <tbody>
             <tr th:each="chat : ${mychats}">
                 <td Profil billed her></td>
+                <td th:text="${chat.getNames()}"></td>
                 <td th:text="${chat.chat_id}"></td>
                 <td><a th:href="@{/chat?id={id}(id=${chat.chat_id})}">GÅ TIL CHAT</a></td>
             </tr>

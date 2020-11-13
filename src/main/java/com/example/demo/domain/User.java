@@ -1,6 +1,8 @@
 package com.example.demo.domain;
 
 
+import org.apache.tomcat.util.codec.binary.Base64;
+
 public class User {
        private int userid;
        private String userName;
@@ -145,5 +147,9 @@ public class User {
        public String getRole(){return role;}
 
        public void setRole(String role) { this.role = role;}
+
+       public String byteArrayAs64String(){
+              return Base64.encodeBase64String(this.img);
+       }
 
 }

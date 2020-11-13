@@ -20,7 +20,7 @@
 <div id="banner">
 </div>
 <div id="content">
-    <h1 style="font-size: 50px; text-align: center">CHAT MED <span th:each="user:${users}"></span><span th:text="${user}"></span></h1>
+    <h1 style="font-size: 50px; text-align: center" th:text="${names}"></h1>
 
     <div th:if="${not #lists.isEmpty(chat)}">
         <table class="chat-table">

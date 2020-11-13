@@ -143,12 +143,12 @@ public class UserMapper {
     }
 
     public void uploadImg(int user_id, Blob img){
-        String statement = "INSERT INTO mydb.users (img) values(?) WHERE ID=?;";
+        String statement = "UPDATE mydb.users SET img=? WHERE ID=?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setBlob(1, img);
             preparedStatement.setInt(2, user_id);
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
         } catch (SQLException sqlException) {
             throw new NullPointerException(sqlException.getMessage());
         }
