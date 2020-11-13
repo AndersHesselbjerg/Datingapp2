@@ -29,4 +29,14 @@
     <bean id="loginController" class="com.example.demo.presentation.LoginController">
         <constructor-arg index="0" ref="userMapper"/>
     </bean>
+    <bean id="candidateMapper" class="com.example.demo.data.CandidateMapper">
+            <constructor-arg index="0" ref="connector"/>
+            <constructor-arg index="1" ref="candidateFactory"/>
+    </bean>
+    <bean id="candidateList" class="com.example.demo.domain.CandidateList"/>
+    <bean id="candidateController" class="com.example.demo.presentation.CandidateController">
+        <constructor-arg index="0" ref="candidateMapper"/>
+    </bean>
+    <bean id="candidateFactory" class="com.example.demo.data.CandidateFactory"/>
+
 </beans>
