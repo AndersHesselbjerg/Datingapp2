@@ -2,8 +2,6 @@ package com.example.demo.data;
 
 import com.example.demo.domain.Candidate;
 import com.example.demo.domain.CandidateList;
-import com.example.demo.domain.User;
-import com.example.demo.domain.UserList;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -27,20 +25,19 @@ public class CandidateMapper {
     }
 
     public void insertCandidate(Candidate candidate) {
-        String statement = "INSERT INTO pairs " + "(pair_id + user) " + "VALUES (?, ?)";
+        String statement = "INSERT INTO candidates " + "(owner_id + candidate_id) " + "VALUES (?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setInt(1, candidate.getPairID());
-            preparedStatement.setInt(2, candidate.getUserID());
+            preparedStatement.setInt(1, candidate.getOwner_id());
+            preparedStatement.setInt(2, candidate.getUser_id());
             preparedStatement.execute();
         } catch (SQLException sqlException) {
             throw new NullPointerException(sqlException.getMessage());
         }
     }
-
-
-    public Candidate getPairsByID(String pairID) {
-        String statement = "SELECT * FROM mydb.pairs WHERE pair_id LIKE ?;";
+  /*      --legacy--
+    public Candidate getCandidatesByID(String pairID) {
+        String statement = "SELECT * FROM mydb.candidates WHERE pair_id LIKE ?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, pairID);
@@ -51,12 +48,12 @@ public class CandidateMapper {
             throw new NullPointerException("Your SQL statement is false");
         }
     }
-
-    public CandidateList getUserCandidates (int userID, int start_row, int limit) {
-        String statement = "SELECT * FROM mydb.pairs WHERE pair_id LIKE ? LIMIT ?, ?;";
+*/
+    public CandidateList getCandidatesOfUser(int owner_id, int start_row, int limit) {
+        String statement = "SELECT * FROM candidates WHERE owner_id LIKE ? LIMIT ?, ?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setInt(1, userID);
+            preparedStatement.setInt(1, owner_id);
             preparedStatement.setInt(2, start_row);
             preparedStatement.setInt(3, limit);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -68,11 +65,11 @@ public class CandidateMapper {
     }
 
 
-        public void deletePair(Candidate candidate) { // skal måske tage pairID istedet
-        String statement = "DELETE FROM pairs WHERE ID=?;";
+        public void deleteCandidate(Candidate candidate) {
+        String statement = "DELETE FROM candidates WHERE ID=?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setInt(1, (candidate.getPairID()));
+            preparedStatement.setInt(1, (candidate.getOwner_id()));
             preparedStatement.execute();
         } catch (SQLException sqlException) {
             throw new NullPointerException("Your SQL statement is false");

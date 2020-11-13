@@ -16,7 +16,7 @@ public class CandidateController {
     }
 
     public CandidateList getCandidatesOfUserID(int userID, int limit, int start_row) {
-        return candidateMapper.getUserCandidates(userID, limit, start_row);
+        return candidateMapper.getCandidatesOfUser(userID, limit, start_row);
     }
 
     public void InsertCandidate (Candidate candidate){candidateMapper.insertCandidate(candidate);}

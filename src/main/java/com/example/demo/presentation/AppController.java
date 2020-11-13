@@ -17,12 +17,14 @@ public class AppController {
     private final UserController userController;
     private final ChatController chatController;
     private final LoginController loginController;
+    private final CandidateController candidateController; //gider ikke være final?
 
 
     AppController() {
         userController = (UserController) ctx.getBean("userController");
         chatController = (ChatController) ctx.getBean("chatController");
         loginController = (LoginController) ctx.getBean("loginController");
+        candidateController = (CandidateController) ctx.getBean("candidateController");
     }
 
     @GetMapping("/")
