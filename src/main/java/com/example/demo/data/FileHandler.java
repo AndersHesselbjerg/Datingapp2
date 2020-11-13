@@ -44,7 +44,7 @@ public class FileHandler {
         try {
             byte[] fileAsBytes = file.getBytes();
             Blob fileAsBlob = new SerialBlob(fileAsBytes);
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO mydb.img VALUES(?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO mydb.img VALUES(?,?);");
             ps.setBlob(1,fileAsBlob);
             ps.setString(2,"Description");
             System.out.println(ps.execute());
