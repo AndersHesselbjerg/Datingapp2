@@ -99,7 +99,7 @@ public class AppController {
     @GetMapping("/loggedin")
     public String loggedin(WebRequest request, Model model) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        CandidateList candidateList = candidateController.getCandidatesOfUserID(user.getUserid(), 1, 20);
+        CandidateList candidateList = candidateController.getCandidatesOfUserID(user.getUserid(), 20, 0);
         UserList userList = new UserList();
         for (Candidate ca : candidateList) {
             userList.add(userController.getUserById(ca.getUser_id()));
@@ -193,21 +193,30 @@ public class AppController {
     }
 
     @PostMapping("/deleteuser")
-    public String deleteUser(@RequestParam int id) {
+    public String deleteUser(@RequestParam int id, Model model) {
         User user = userController.getUserById(id);
         userController.deleteUser(user);
-        return "success";
+        UserList new_users = userController.getAllUsers();
+        model.addAttribute("users", new_users);
+        return "admin";
     }
 
     @RequestMapping(value = "/deletecandidate", method = {RequestMethod.GET, RequestMethod.POST})
-    public String deletecandidate(@RequestParam int id, WebRequest request) {
+    public String deletecandidate(@RequestParam int id, WebRequest request,Model model) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        CandidateList candidateList = candidateController.getCandidatesOfUserID(user.getUserid(), 1, 20);
+        CandidateList candidateList = candidateController.getCandidatesOfUserID(user.getUserid(), 20, 0);
         for (Candidate ca : candidateList) {
             if (ca.getUser_id() == id) {
                 candidateController.deleteCandidate(ca);
             }
         }
+        CandidateList new_candList = candidateController.getCandidatesOfUserID(user.getUserid(), 20, 0);
+        UserList userList = new UserList();
+        for (Candidate can : new_candList) {
+            userList.add(userController.getUserById(can.getUser_id()));
+        }
+        model.addAttribute("candidates", userList);
+        model.addAttribute("users", userController.getAllUsers());
         return "loggedin";
     }
 
@@ -216,16 +225,15 @@ public class AppController {
             @RequestParam int user_id,
             WebRequest request, Model model) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
-        Candidate candidate = new Candidate(user_id, user.getUserid());
-        candidateController.InsertCandidate(candidate);
-        CandidateList candidateList = candidateController.getCandidatesOfUserID(user.getUserid(), 1, 20);
+        candidateController.InsertCandidate(user_id, user.getUserid());
+        CandidateList candidateList = candidateController.getCandidatesOfUserID(user.getUserid(), 20, 0);
         UserList userList = new UserList();
         for (Candidate ca : candidateList) {
             userList.add(userController.getUserById(ca.getUser_id()));
         }
         model.addAttribute("candidates", userList);
         model.addAttribute("users", userController.getAllUsers());
-        return "loggedin";
+        return "redirect:/loggedin";
     }
 
     @GetMapping("/mychats")
@@ -269,6 +277,7 @@ public class AppController {
         chatController.sendMessage(chat, user, msg);
         ChatList new_chatlist = chatController.getChats(user);
         Chat new_chat = new_chatlist.getById(id);
+        model.addAttribute("names", chat.getNames());
         model.addAttribute("users", chatController.getUsers(id));
         model.addAttribute("chatid", id);
         model.addAttribute("chat", new_chat.getMessages());
@@ -276,10 +285,17 @@ public class AppController {
     }
 
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file, WebRequest request) {
+    public String handleFileUpload(@RequestParam("file") MultipartFile file, WebRequest request, Model model) {
         User user = (User) request.getAttribute("user", WebRequest.SCOPE_SESSION);
         userController.addProfilePicture(user.getUserid(), file);
-        return "success";
+        CandidateList candidateList = candidateController.getCandidatesOfUserID(user.getUserid(), 20, 0);
+        UserList userList = new UserList();
+        for (Candidate ca : candidateList) {
+            userList.add(userController.getUserById(ca.getUser_id()));
+        }
+        model.addAttribute("candidates", userList);
+        model.addAttribute("users", userController.getAllUsers());
+        return "loggedin";
     }
 
     @PostMapping("/uploadimg")

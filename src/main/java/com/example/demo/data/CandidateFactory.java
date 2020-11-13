@@ -18,9 +18,10 @@ public class CandidateFactory {
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
             }
+            int ID = resultSet.getInt("ID");
             int ownerID = resultSet.getInt("owner_id");
             int candidateID = resultSet.getInt("candidate_id");
-            return new Candidate(candidateID, ownerID);
+            return new Candidate(ID, candidateID, ownerID);
         } catch (SQLException sqlException) {
             throw new NullPointerException("Something went wrong, check your connection to dmbs");
         }

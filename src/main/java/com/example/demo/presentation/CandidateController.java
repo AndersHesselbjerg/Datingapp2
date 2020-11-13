@@ -24,7 +24,9 @@ public class CandidateController {
 
     public void deleteCandidate(Candidate candidate){ candidateMapper.deleteCandidate(candidate);}
 
-    public void InsertCandidate (Candidate candidate){candidateMapper.insertCandidate(candidate);}
+    public void InsertCandidate (int cand_id, int owner_id){
+        candidateMapper.insertCandidate(cand_id, owner_id);
+    }
 }
 
 

@@ -27,12 +27,12 @@ public class CandidateMapper {
 
     }
 
-    public void insertCandidate(Candidate candidate) {
-        String statement = "INSERT INTO candidates " + "(owner_id, candidate_id) " + "VALUES(?, ?);";
+    public void insertCandidate(int cand_id, int owner_id) {
+        String statement = "INSERT INTO candidates " + "(candidate_id, owner_id) " + "VALUES(?, ?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setInt(1, candidate.getOwner_id());
-            preparedStatement.setInt(2, candidate.getUser_id());
+            preparedStatement.setInt(1, cand_id);
+            preparedStatement.setInt(2, owner_id);
             preparedStatement.execute();
         } catch (SQLException sqlException) {
             throw new NullPointerException(sqlException.getMessage());
@@ -72,7 +72,7 @@ public class CandidateMapper {
         String statement = "DELETE FROM candidates WHERE ID=?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setInt(1, (candidate.getUser_id()));
+            preparedStatement.setInt(1, (candidate.getID()));
             preparedStatement.execute();
         } catch (SQLException sqlException) {
             throw new NullPointerException("Your SQL statement is false");

@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
 public class Candidate {
+    private int ID;
     private int user_id;
     private int owner_id;
 
@@ -16,11 +17,20 @@ public class Candidate {
         return owner_id;
     }
 
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
     public void setOwner_id(int owner_id) {
         this.owner_id = owner_id;
     }
 
-    public Candidate (int user, int owner_id) {
+    public Candidate (int ID, int user, int owner_id) {
+        this.ID = ID;
         this.user_id = user;
         this.owner_id = owner_id;
     }
