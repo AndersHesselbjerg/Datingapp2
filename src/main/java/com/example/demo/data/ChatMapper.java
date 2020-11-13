@@ -34,7 +34,7 @@ public class ChatMapper {
             ChatList chats = chatFactory.batch(resultSet);
             return chats;
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Your SQL statement is false");
+            throw new NullPointerException(sqlException.getMessage());
         }
     }
 
@@ -47,7 +47,7 @@ public class ChatMapper {
             Chat chat = chatFactory.create(resultSet);
             return chat;
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Your SQL statement is false");
+            throw new NullPointerException(sqlException.getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ public class ChatMapper {
             MessageList messages = messageFactory.batch(resultSet);
             return messages;
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Your SQL statement is false");
+            throw new NullPointerException(sqlException.getMessage());
         }
     }
 
@@ -84,7 +84,6 @@ public class ChatMapper {
         }
     }
 
-
     public void sendMessage(int chatId, String text, int userId) {
         try {
             String statement = "INSERT INTO mydb.messages (chat_id, text, sender_user_id) VALUES(?,?,?);";
@@ -94,7 +93,39 @@ public class ChatMapper {
             preparedStatement.setInt(3, userId);
             preparedStatement.execute();
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Your SQL statement is false");
+            throw new NullPointerException(sqlException.getMessage());
+        }
+    }
+
+    public int newChat(int logged_in_user_id) {
+        try {
+            String statement01 = "SELECT max(chat_id) AS \"size\" FROM mydb.chats;";
+            PreparedStatement preparedStatement01 = connection.prepareStatement(statement01);
+            ResultSet resultSet = preparedStatement01.executeQuery();
+            if (resultSet.isBeforeFirst()) {
+                resultSet.next();
+            }
+            int chat_id = resultSet.getInt("size") + 1;
+            String statement02 = "INSERT INTO mydb.chats (chat_id, user_id) VALUES(?,?);";
+            PreparedStatement preparedStatement02 = connection.prepareStatement(statement02);
+            preparedStatement02.setInt(1, chat_id);
+            preparedStatement02.setInt(2, logged_in_user_id);
+            preparedStatement02.execute();
+            return chat_id;
+        } catch (SQLException sqlException) {
+            throw new NullPointerException(sqlException.getMessage());
+        }
+    }
+
+    public void addToChat(int user_id, int chat_id) {
+        try {
+            String statement = "INSERT INTO mydb.chats (chat_id, user_id) VALUES(?,?);";
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setInt(1, chat_id);
+            preparedStatement.setInt(2, user_id);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            throw new NullPointerException(sqlException.getMessage());
         }
     }
 }

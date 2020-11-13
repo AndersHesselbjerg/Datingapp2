@@ -33,7 +33,7 @@ public class ChatFactory {
                 int chat_id = resultSet.getInt("chat_id");
                 return new Chat(chat_id);
         } catch (SQLException sqlException) {
-            throw new NullPointerException("Something went wrong, check your connection to dmbs");
+            throw new NullPointerException(sqlException.getMessage());
         }
     }
 }
