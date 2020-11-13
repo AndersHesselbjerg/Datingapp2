@@ -6,10 +6,7 @@ import com.example.demo.domain.User;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 @Component
 @Scope("Singleton")
@@ -142,6 +139,18 @@ public class UserMapper {
         } catch (SQLException sqlException) {
             throw new NullPointerException(sqlException.getMessage());
 
+        }
+    }
+
+    public void uploadImg(int user_id, Blob img){
+        String statement = "INSERT INTO mydb.users (img) values(?) WHERE ID=?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setBlob(1, img);
+            preparedStatement.setInt(2, user_id);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            throw new NullPointerException(sqlException.getMessage());
         }
     }
 }

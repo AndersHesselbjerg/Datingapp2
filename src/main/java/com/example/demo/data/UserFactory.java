@@ -43,7 +43,8 @@ public class UserFactory {
             String tags = resultSet.getString("tags");
             String time_of_registry = resultSet.getString("time_of_registry");
             int score = resultSet.getInt("user_score");
-            return new User(id, username, password, firstname, lastname, creditInfo, phone, mail, description, tags, time_of_registry, score, role);
+            byte[] img = resultSet.getBytes("img");
+            return new User(id, username, password, firstname, lastname, creditInfo, phone, mail, description, tags, time_of_registry, score, role, img);
         } catch (SQLException sqlException) {
             throw new NullPointerException(sqlException.getMessage());
         }

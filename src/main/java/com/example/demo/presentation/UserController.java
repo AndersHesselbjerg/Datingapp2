@@ -5,6 +5,12 @@ import com.example.demo.domain.User;
 import com.example.demo.domain.UserList;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.sql.rowset.serial.SerialBlob;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 
 @Component
 @Scope("Singleton")
@@ -41,5 +47,15 @@ public class UserController {
 
     public void deleteUser(User user) {
         userMapper.deleteUser(user);
+    }
+
+    public void addProfilePicture(int user_id, MultipartFile file) {
+        try {
+            byte[] fileAsBytes = file.getBytes();
+            Blob fileAsBlob = new SerialBlob(fileAsBytes);
+            userMapper.uploadImg(user_id, fileAsBlob);
+        } catch (IOException | SQLException ioException) {
+            throw new NullPointerException(ioException.getMessage());
+        }
     }
 }

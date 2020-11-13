@@ -15,8 +15,9 @@ public class User {
        private String timeOfRegistry;
        private int score;
        private String role;
+       private byte[] img;
 
-       public User(int userid, String userName, String password, String firstName, String lastName, String creditInfo, String phone, String mail, String description, String tags, String timeOfRegistry, int score, String role) {
+       public User(int userid, String userName, String password, String firstName, String lastName, String creditInfo, String phone, String mail, String description, String tags, String timeOfRegistry, int score, String role, byte[] img) {
               this.userid = userid;
               this.userName = userName;
               this.password = password;
@@ -30,6 +31,7 @@ public class User {
               this.timeOfRegistry = timeOfRegistry;
               this.score = score;
               this.role = role;
+              this.img = img;
        }
 
        public User(String email, String password, String customer) {
@@ -76,6 +78,13 @@ public class User {
               this.mail = mail;
        }
 
+       public byte[] getImg() {
+              return img;
+       }
+
+       public void setImg(byte[] img) {
+              this.img = img;
+       }
 
        public String getDescription() {
               return description;

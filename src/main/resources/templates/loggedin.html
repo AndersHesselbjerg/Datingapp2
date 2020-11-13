@@ -28,6 +28,11 @@
         <p>Beskrivelse:</p>
         <p th:text="${session.user.description}"></p>
         <div id="profilepic">
+            <form method="POST" action="/uploadimg" enctype="multipart/form-data">
+                <th:label path="file">Select a file to upload</th:label>
+                <input type="file" name="file"/>
+                <input type="submit" value="Submit"/>
+            </form>
         </div>
         <a href="/editprofile" style="font-size: 25px"> REDIGER PROFIL</a>
         <div th:if="${not #lists.isEmpty(candidates)}">

@@ -5,8 +5,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.security.auth.login.LoginException;
 
@@ -18,13 +20,14 @@ public class AppController {
     private final ChatController chatController;
     private final LoginController loginController;
     private final CandidateController candidateController; //gider ikke være final?
-
+    private final FileUploadController fileUploadController;
 
     AppController() {
         userController = (UserController) ctx.getBean("userController");
         chatController = (ChatController) ctx.getBean("chatController");
         loginController = (LoginController) ctx.getBean("loginController");
         candidateController = (CandidateController) ctx.getBean("candidateController");
+        fileUploadController = (FileUploadController) ctx.getBean("fileUploadController");
     }
 
     @GetMapping("/")
@@ -249,12 +252,20 @@ public class AppController {
         return "loggedin";
     }
 
+
+    @PostMapping("/uploadimg")
+    public String uploadimg(@RequestParam("file") MultipartFile file, ModelMap modelMap) {
+        modelMap.addAttribute("file", file);
+        fileUploadController.uploadAsPath(file);
+        //return "uploadResult";
+        //modelMap("files", fh.getAllImages());
+        return "redirect:/";
+    }
+
     /*
      * Mangler opret ny chat.
      * Mangler billed upload.
      * Mangler logout*
-     * Mangler Kandidat liste.
-     *
      * Design
      * */
 

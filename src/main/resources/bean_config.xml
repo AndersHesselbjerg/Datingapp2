@@ -29,6 +29,12 @@
     <bean id="loginController" class="com.example.demo.presentation.LoginController">
         <constructor-arg index="0" ref="userMapper"/>
     </bean>
+    <bean id="fileHandler" class="com.example.demo.data.FileHandler">
+        <constructor-arg index="0" ref="connector"/>
+    </bean>
+    <bean id="fileUploadController" class="com.example.demo.presentation.FileUploadController">
+        <constructor-arg index="0" ref="fileHandler"/>
+    </bean>
     <bean id="candidateMapper" class="com.example.demo.data.CandidateMapper">
             <constructor-arg index="0" ref="connector"/>
             <constructor-arg index="1" ref="candidateFactory"/>
